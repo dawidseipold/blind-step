@@ -13,7 +13,7 @@
 | T06 | Bateria | T05 | Po N impulsach latarka jest pusta. Pominięte wejścia nie zużywają zapasu. Reset odtwarza warunki próby. |
 | T07 | Optyka bodycam | T02 | Z jednego miejsca porównano dwa ustawienia dystorsji i stabilność środka przy obrocie. |
 | T08 | Adaptacja po impulsie | T05, T07 | Po zgaśnięciu tester odróżnia duże kształty, a ponowny impuls odsłania szczegół. |
-| T09 | Proceduralne audio bazowe | T04, T06 | Odsłuch potwierdza czytelny oddech po sprincie i klik pustej latarki. |
+| T09 | Proceduralne audio bazowe | T04 (oddech), T06 (klik) | Oddech narasta podczas sprintu i cichnie podczas regeneracji. Po wyczerpaniu baterii słychać klik. |
 | T10 | Korytarz i trzy pokoje | odbiór T02–T09 | Dwie trasy oraz narożnik umożliwiają powtórzenie próby percepcji. |
 | T11 | Słuch istoty | T10 | Sprint przyciąga z większej odległości niż skradanie, także przy ściszonym masterze. |
 | T12 | Dwie reakcje na impuls | T10, T06 | W tym samym stanowisku jeden profil istoty cofa się, drugi bada błysk. Pełna ściana osłania cel. |
@@ -24,3 +24,7 @@
 | T17 | Zdiagnozować smużenie krawędzi podczas chodzenia | T02, etap M4 | Bench: przy nieruchomej myszy idź A/D obok pionowej krawędzi i powtórz z W/S. Próba kontrolna: obracaj samą myszą w miejscu (według gracza brak efektu). Zapisz FPS, częstotliwość monitora, takt fizyki i krótki klip. Porównaj identyczny ruch przy interpolacji fizyki wyłączonej i włączonej, również przy FPS wyższym od taktu fizyki. Oceń równomierność przesunięć i ewentualny ślad w kolejnych klatkach. Jeśli ślad występuje tylko na ekranie, porównaj ustawienia overdrive. Odbiór: powtarzalna próba A/B i wskazanie źródła w surowej scenie Bench. |
 | T18 | Ujednolicić etykiety wszystkich issues | T00 | Każde issue ma obszar, priorytet, stan i rodzaj w formacie typ:wartość. |
 | T19 | Nazwa Blind Step i etapy rozwoju | T00 | Projekt ma spójną nazwę, a każde issue ma przypisany etap. |
+| T20 | Przyspieszanie i hamowanie | T04 | Prędkość narasta i opada płynnie, tester zatrzymuje się przed przesłoną. |
+| T21 | Płynna zmiana wysokości oczu | T03 | Po puszczeniu Ctrl pod stropem głowa zostaje nisko. Po wyjściu kamera płynnie wraca. |
+| T22 | Próba stresu podczas pogoni | T11, T12 | Sama pogoń podnosi stres nieruchomej postaci. Sam sprint w pustej sali podnosi zmęczenie. |
+| T23 | Kołysanie bodycam przy biegu | T17, T20 | Przy amplitudzie zero wraca kadr kontrolny. Kołysanie boczne i pionowe wygasa po zatrzymaniu. |

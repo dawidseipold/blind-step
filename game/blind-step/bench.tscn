@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bytpsa18lxm6e"]
 
 [ext_resource type="PackedScene" path="res://player.tscn" id="PlayerScene"]
+[ext_resource type="Script" path="res://bench_readout.gd" id="Readout"]
 
 [node name="Bench" type="Node3D" unique_id=133904966]
 
@@ -69,3 +70,14 @@ use_collision = true
 position = Vector3(1, 0.75, -8.5)
 size = Vector3(0.7, 1.5, 0.5)
 use_collision = true
+
+[node name="Diagnostics" type="CanvasLayer" parent="."]
+
+[node name="Stamina" type="Label" parent="Diagnostics" node_paths=PackedStringArray("player")]
+offset_left = 12.0
+offset_top = 10.0
+mouse_filter = 2
+theme_override_constants/outline_size = 4
+text = "Stamina 100/100"
+script = ExtResource("Readout")
+player = NodePath("../../PlayerSpawn/Player")

@@ -3,6 +3,11 @@ extends CharacterBody3D
 @export_range(0.5, 8.0, 0.1) var walk_speed := 3.0
 @export_range(0.3, 3.0, 0.1) var crouch_speed := 1.5
 @export_range(0.01, 1.0, 0.01) var degrees_per_pixel := 0.12
+@export_group("Sprint")
+@export_range(3.0, 9.0, 0.1) var sprint_speed := 5.2
+@export_range(0.5, 10.0, 0.1) var sprint_seconds := 2.5
+@export_range(0.0, 5.0, 0.05) var recovery_delay := 1.25
+@export_range(0.5, 12.0, 0.1) var recovery_seconds := 4.0
 @onready var camera: Camera3D = $Camera3D
 @onready var collider: CollisionShape3D = $Collider
 @onready var capsule: CapsuleShape3D = collider.shape
@@ -11,6 +16,9 @@ extends CharacterBody3D
 
 const CROUCH_HEIGHT := 1.0
 var crouching := false
+var stamina := 1.0
+var recovery_wait := 0.0
+var exhausted := false
 var headroom := PhysicsShapeQueryParameters3D.new()
 
 func _ready() -> void:
@@ -36,11 +44,26 @@ func _physics_process(delta: float) -> void:
 	var axes := Input.get_vector("walk_left", "walk_right", "walk_forward", "walk_back")
 	var direction := transform.basis * Vector3(axes.x, 0.0, axes.y)
 	var speed := crouch_speed if crouching else walk_speed
+	var wants_sprint := Input.is_action_pressed("sprint")
+	if exhausted and not wants_sprint and stamina >= 0.25:
+		exhausted = false
+	var sprinting := wants_sprint and not exhausted and not crouching and is_on_floor() and axes != Vector2.ZERO
+	if sprinting:
+		speed = sprint_speed
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	move_and_slide()
+	var travel := get_position_delta()
+	if sprinting and Vector2(travel.x, travel.z).length() > 0.0001:
+		stamina = maxf(0.0, stamina - delta / sprint_seconds)
+		recovery_wait = recovery_delay
+		exhausted = is_zero_approx(stamina)
+	elif recovery_wait > 0.0:
+		recovery_wait = maxf(0.0, recovery_wait - delta)
+	else:
+		stamina = minf(1.0, stamina + delta / recovery_seconds)
 
 func update_stance() -> void:
 	var wants_crouch := Input.is_action_pressed("crouch")
