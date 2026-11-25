@@ -22,6 +22,10 @@ window/stretch/aspect="expand"
 
 [input]
 
+crouch={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":4194326)]
+}
 walk_forward={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"physical_keycode":87)]
