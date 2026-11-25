@@ -4,7 +4,7 @@ Bodycam FPP o estetyce PSX. Scena Bench to laboratorium w skali metrów. Neutral
 
 ## Latarka impulsowa
 
-Naciśnięcie daje krótki snop. Światło słabnie, po czym gaśnie. Każdy skuteczny impuls zużywa porcję baterii. Na pierwszą próbę proponujemy trzy użycia, sekundę pełnego światła i sekundę wygaszania. Wartości do regulacji w Inspectorze. Ponowne naciśnięcie podczas aktywnego impulsu pomija wejście. Przy pustej baterii słychać suchy klik. Reset próby przywraca zapas. Brak HUD w kadrze.
+Naciśnięcie daje krótki snop. Światło słabnie, po czym gaśnie. Każdy skuteczny impuls zużywa porcję baterii. Na pierwszą próbę proponujemy trzy użycia, sekundę pełnego światła i sekundę wygaszania. Wartości do regulacji w Inspectorze. Ponowne naciśnięcie podczas aktywnego impulsu pomija wejście. Przy pustej baterii słychać suchy klik. Reset próby przywraca zapas. Podczas prób na Bench odczyt F3 pokazuje stan właśnie testowanej mechaniki. Przy wdrożeniu baterii pokaż liczbę pozostałych impulsów.
 
 Po zgaśnięciu w półmroku nadal widać obrys przeszkody. Z czasem wraca czytelność dużych kształtów. Dystorsja obiektywu rośnie ku brzegom, a siła ziarna zależy od jasności. Stabilny środek i natychmiastowa reakcja myszy ułatwiają orientację. Kadr z progu służy do porównania wersji.
 

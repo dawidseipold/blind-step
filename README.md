@@ -5,3 +5,4 @@ Godot Engine 4.7.2.stable.steam (ed1daf0bf), Forward+, Windows. W menedżerze ot
 [Roadmapa i zadania](ROADMAP.md) · [Założenia](DESIGN.md) · [Zasoby](ASSETS.md) · [Zasady pracy](AGENTS.md) · [Plan użycia ai-gamedev-kit](TOOLS.md)
 
 [Etapy rozwoju i warunki odbioru](docs/etapy.md)
+Na planszy Bench licznik Stamina pokazuje kondycję w skali 0–100. F3 ukrywa lub przywraca odczyt.
