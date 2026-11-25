@@ -20,3 +20,4 @@ Każdy wiersz jest osobnym szkicem issue. Identyfikatory Txx służą do powiąz
 | T13 | Podłoża i krzaki | po akceptacji podstaw | W ślepej próbie tester rozróżnia dwa rodzaje kroków i wejście w krzaki. |
 | T14 | Próba wyboru trasy i pojedynczego strzału | T11, T12 | Tester porównuje przejście z ograniczoną baterią i wariant z możliwością odstraszenia strzałem. |
 | T15 | Pierwsza próbka wykończenia | po akceptacji mechanik | Jedno ujęcie wyznacza paletę, tekstury i skalę detalu. |
+| T16 | Uruchomić lookup API na komputerze projektu | T00 | Zapytania o move_and_slide i screen_relative zwracają wpisy dla wersji gry. |
