@@ -1,11 +1,10 @@
-# Praca w repozytorium
+# Wspólne zasady Codex i Claude
 
-Jedno aktywne zadanie i jeden autor zmian naraz, niezależnie od konta. Kod gry w game/, GDScript i Godot 4. Dokładną wersję odczytaj z README. Założenia wizualne w DESIGN.md. Buduj wyłącznie zakres bieżącego issue. HUD, dodatki, frameworki agentowe i zmiany kierunku artystycznego wymagają osobnego zadania uzgodnionego z autorem gry.
+Jedno issue na każdą zmianę, także dokumentację, poprawkę i wydanie. Jedno konto edytuje projekt w danym momencie. W issue podaj cel, scenę lub pliki, zależności i jeden obserwowalny warunek odbioru. Przy braku dostępu do GitHuba użyj wpisu Txx w ROADMAP.md i powiąż go z issue po publikacji.
 
-1. Sprawdź git status i aktualną gałąź. Otwórz wskazane issue, ostatnie przekazanie oraz pliki wymienione w zadaniu. Szukaj symboli przez rg. Rozszerzaj kontekst tylko w miarę potrzeby.
-2. Nowe zadanie zacznij na gałęzi issue-<numer>-<temat>. Przy zmianie konta w trakcie zadania kontynuuj tę samą gałąź i sprawdź ostatni commit. Zachowaj cudze zmiany.
-3. Do weryfikacji użyj sceny i warunku odbioru z issue. Kiedy godot jest w PATH, z katalogu repo wykonaj godot --headless --path game --import, a następnie godot --headless --path game --quit-after 10. Ruch, obraz i odsłuch sprawdź także w edytorze. Podaj, co faktycznie sprawdzono.
-4. Przy przekazaniu zapisz commit roboczy i wypchnij gałąź, jeśli kolejne konto używa innej kopii. W issue zostaw gałąź i SHA, rezultat, test, otwarty problem i następny krok. Zamknij zadanie po odbiorze i scaleniu.
-5. Użyj jednego porównania A/B do zmian wyglądu. Dodawaj tylko ujęcie z uzgodnionego miejsca lub krótki klip potrzebny do decyzji. Cache .godot/ pomijaj, pliki .uid zasobów zachowuj w Git.
-
-Przykład zlecenia dla następnego konta: „Kontynuuj issue numer X od SHA Y. Sprawdź warunek odbioru w scenie Bench. Ostatni problem i pliki są w komentarzu przekazania”.
+- Rozpoczynaj feat/<numer>-<temat> z aktualnego development. Używaj PR do development. Po akceptacji i scaleniu zamknij powiązane issue. Dla roboczych wpisów lokalnych użyj Txx zamiast numeru.
+- Przy przygotowaniu wydania utwórz release/<wersja> z development. Po testach scal release do main, oznacz wydanie tagiem v<wersja> i scal poprawki wydania z powrotem do development. Pilną poprawkę wydania przygotuj na hotfix/<numer>-<temat> z main i włącz do obu gałęzi.
+- Zachowuj autora skonfigurowanego w Git. Pomijaj Co-authored-by, podpisy agentów, Generated with oraz inne stopki AI w commitach i opisach PR. Sprawdź treść przed wysłaniem.
+- Kontynuuj istniejącą gałąź przy zmianie konta. Przekazanie w issue zawiera gałąź, SHA, pliki, wynik konkretnego testu i jeden następny krok. Zacznij od git status, issue i przekazania. Wyszukuj symbole przez rg.
+- Projekt jest w game/new-game-project. Weryfikuj zmianę w Godocie 4.7.2. Do testu ładowania użyj godot --headless --path game/new-game-project --import, potem godot --headless --path game/new-game-project --quit-after 10. Ocenę obrazu, ruchu i odsłuch zapisuj oddzielnie od wyniku ładowania.
+- Zachowaj surowe bryły do zatwierdzenia podstaw. HUD, integracja MCP, harness i docelowe assety czekają na osobne zadania. Pliki .uid przechowuj w Git, cache .godot/ pomijaj.
