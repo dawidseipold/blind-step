@@ -1,6 +1,6 @@
 # Backlog prototypu
 
-Każdy wiersz jest osobnym szkicem issue. Identyfikatory Txx służą do powiązania z GitHubem po publikacji. W issue zachowuj numer zadania zależnego. Każdy test zaczyna się z tego samego miejsca.
+[Plan etapów i kryteria przejścia](docs/etapy.md). Każdy wiersz odpowiada jednemu issue. Identyfikatory Txx służą do powiązania z GitHubem po publikacji. W issue zachowuj numer zadania zależnego. Każdy test zaczyna się z tego samego miejsca.
 
 | ID | Zadanie | Po | Odbiór |
 |---|---|---|---|
@@ -21,5 +21,6 @@ Każdy wiersz jest osobnym szkicem issue. Identyfikatory Txx służą do powiąz
 | T14 | Próba wyboru trasy i pojedynczego strzału | T11, T12 | Tester porównuje przejście z ograniczoną baterią i wariant z możliwością odstraszenia strzałem. |
 | T15 | Pierwsza próbka wykończenia | po akceptacji mechanik | Jedno ujęcie wyznacza paletę, tekstury i skalę detalu. |
 | T16 | Uruchomić lookup API na komputerze projektu | T00 | Zapytania o move_and_slide i screen_relative zwracają wpisy dla wersji gry. |
-| T17 | Zdiagnozować smużenie krawędzi podczas chodzenia | T02, przed T07 | Bench: przy nieruchomej myszy idź A/D obok pionowej krawędzi i powtórz z W/S. Próba kontrolna: obracaj samą myszą w miejscu (według gracza brak efektu). Zapisz FPS, częstotliwość monitora, takt fizyki i krótki klip. Porównaj identyczny ruch przy interpolacji fizyki wyłączonej i włączonej, również przy FPS wyższym od taktu fizyki. Oceń równomierność przesunięć i ewentualny ślad w kolejnych klatkach. Jeśli ślad występuje tylko na ekranie, porównaj ustawienia overdrive. Odbiór: powtarzalna próba A/B i wskazanie źródła przed filtrami bodycam. |
+| T17 | Zdiagnozować smużenie krawędzi podczas chodzenia | T02, etap M4 | Bench: przy nieruchomej myszy idź A/D obok pionowej krawędzi i powtórz z W/S. Próba kontrolna: obracaj samą myszą w miejscu (według gracza brak efektu). Zapisz FPS, częstotliwość monitora, takt fizyki i krótki klip. Porównaj identyczny ruch przy interpolacji fizyki wyłączonej i włączonej, również przy FPS wyższym od taktu fizyki. Oceń równomierność przesunięć i ewentualny ślad w kolejnych klatkach. Jeśli ślad występuje tylko na ekranie, porównaj ustawienia overdrive. Odbiór: powtarzalna próba A/B i wskazanie źródła w surowej scenie Bench. |
 | T18 | Ujednolicić etykiety wszystkich issues | T00 | Każde issue ma obszar, priorytet, stan i rodzaj w formacie typ:wartość. |
+| T19 | Nazwa Blind Step i etapy rozwoju | T00 | Projekt ma spójną nazwę, a każde issue ma przypisany etap. |
