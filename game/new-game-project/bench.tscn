@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://bytpsa18lxm6e"]
 
+[ext_resource type="PackedScene" path="res://player.tscn" id="PlayerScene"]
+
 [node name="Bench" type="Node3D" unique_id=133904966]
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
 position = Vector3(-3, 0.05, 6)
 
-[node name="Overview" type="Camera3D" parent="."]
-position = Vector3(9, 10, 13)
-rotation_degrees = Vector3(-32, 31, 0)
-current = true
+[node name="Player" parent="PlayerSpawn" instance=ExtResource("PlayerScene")]
 
 [node name="BenchLight" type="OmniLight3D" parent="."]
 position = Vector3(-2, 5, 1)
