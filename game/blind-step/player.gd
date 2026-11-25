@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 @export_range(0.5, 8.0, 0.1) var walk_speed := 3.0
 @export_range(0.3, 3.0, 0.1) var crouch_speed := 1.5
+@export_range(1.0, 80.0, 0.5) var acceleration := 20.0
+@export_range(1.0, 80.0, 0.5) var braking := 30.0
 @export_range(0.01, 1.0, 0.01) var degrees_per_pixel := 0.12
 @export_group("Sprint")
 @export_range(3.0, 9.0, 0.1) var sprint_speed := 5.2
@@ -50,8 +52,12 @@ func _physics_process(delta: float) -> void:
 	var sprinting := wants_sprint and not exhausted and not crouching and is_on_floor() and axes != Vector2.ZERO
 	if sprinting:
 		speed = sprint_speed
-	velocity.x = direction.x * speed
-	velocity.z = direction.z * speed
+	var target := Vector2(direction.x, direction.z) * speed
+	var horizontal := Vector2(velocity.x, velocity.z)
+	var slowing := horizontal.length_squared() > target.length_squared() or horizontal.dot(target) < 0.0
+	horizontal = horizontal.move_toward(target, (braking if slowing else acceleration) * delta)
+	velocity.x = horizontal.x
+	velocity.z = horizontal.y
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	move_and_slide()
