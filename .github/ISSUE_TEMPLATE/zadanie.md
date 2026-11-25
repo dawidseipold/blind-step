@@ -2,7 +2,7 @@
 name: Zadanie prototypu
 about: Jedna zmiana do sprawdzenia w grze
 title: ''
-labels: ''
+labels: 'area:triage, priority:medium, status:todo, type:task'
 assignees: ''
 ---
 

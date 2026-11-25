@@ -9,3 +9,7 @@ Jedno issue na każdą zmianę, także dokumentację, poprawkę i wydanie. Jedno
 - Projekt jest w game/new-game-project. Weryfikuj zmianę w Godocie 4.7.2. Do testu ładowania użyj godot --headless --path game/new-game-project --import, potem godot --headless --path game/new-game-project --quit-after 10. Ocenę obrazu, ruchu i odsłuch zapisuj oddzielnie od wyniku ładowania.
 - Zachowaj surowe bryły do zatwierdzenia podstaw. HUD, integracja MCP, harness i docelowe assety czekają na osobne zadania. Pliki .uid przechowuj w Git, cache .godot/ pomijaj.
 - Lokalny lookup API dla wersji projektu jest gotowy. Jedno polecenie i ścieżkę znajdziesz w TOOLS.md.
+
+## Etykiety issues
+
+Przy tworzeniu każdego issue przypisz area:<obszar>, priority:<low|medium|high>, status:<todo|in-progress|review|done> oraz type:<feature|bug|task>. Używaj jednej wartości każdej obowiązkowej kategorii. Dla zadania do klasyfikacji wybierz area:triage. Pozostałe etykiety również zapisuj jako typ:wartość. Przy rozpoczęciu pracy zmień status na in-progress, przy zgłoszeniu do odbioru na review, po zamknięciu na done. Przy wznowieniu wróć do todo. Zastępuj poprzednią wartość w obrębie kategorii.
