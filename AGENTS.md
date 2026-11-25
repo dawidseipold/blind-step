@@ -8,3 +8,4 @@ Jedno issue na każdą zmianę, także dokumentację, poprawkę i wydanie. Jedno
 - Kontynuuj istniejącą gałąź przy zmianie konta. Przekazanie w issue zawiera gałąź, SHA, pliki, wynik konkretnego testu i jeden następny krok. Zacznij od git status, issue i przekazania. Wyszukuj symbole przez rg.
 - Projekt jest w game/new-game-project. Weryfikuj zmianę w Godocie 4.7.2. Do testu ładowania użyj godot --headless --path game/new-game-project --import, potem godot --headless --path game/new-game-project --quit-after 10. Ocenę obrazu, ruchu i odsłuch zapisuj oddzielnie od wyniku ładowania.
 - Zachowaj surowe bryły do zatwierdzenia podstaw. HUD, integracja MCP, harness i docelowe assety czekają na osobne zadania. Pliki .uid przechowuj w Git, cache .godot/ pomijaj.
+- Lokalny lookup API dla wersji projektu jest gotowy. Jedno polecenie i ścieżkę znajdziesz w TOOLS.md.
