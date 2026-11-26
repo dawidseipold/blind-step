@@ -10,7 +10,7 @@ extends SpotLight3D
 var unlimited := false
 var flicker_amplitude := 0.035
 var flicker_period := 2.8
-var flame_power := 0.85
+var flame_power := 1.0
 var flame_time := 0.0
 var burn_left := 0.0
 var has_torch := false
@@ -19,11 +19,13 @@ func _ready() -> void:
 	light_energy = 0.0
 	flame.hide()
 
-func equip_torch() -> void:
-	if not has_torch:
-		burn_left = 0.0
-		flame.hide()
-		has_torch = true
+func select_torch(selected: bool) -> void:
+	if selected == has_torch:
+		return
+	burn_left = 0.0
+	flame.hide()
+	light_energy = 0.0
+	has_torch = selected
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("flashlight"):

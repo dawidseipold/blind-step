@@ -41,3 +41,5 @@
 | T34 | Czytelniejsza trasa po zgaszeniu światła | T33 | Ślad latarki utrzymuje się do 10 s, zapałki do 7 s. Promień snopa na tej samej odległości zwiększony o 50% względem T33. |
 | T35 | Rozproszenie i zasięg światła | T34 | Zapałka sięga do 5 m, latarka do 20 m. Przeszkoda i granica snopa blokują zapis. |
 | T36 | Strojenie światła i zasobów | T35 | F4 zmienia parametry podczas gry. Tryb nieskończony obejmuje światło i kondycję. |
+| T37 | Profil playtestu i równa trwałość śladu latarki | T35, T36 | W rdzeniu wiązki podłoga i ściana zachowują ten sam czas śladu do 75% zasięgu. F4 przełącza źródło. |
+| T38 | Sala pałacu i przełączanie map | T36 | Z F4 można przejść między korytarzem i zamkniętą salą z trzema oknami w obie strony. |

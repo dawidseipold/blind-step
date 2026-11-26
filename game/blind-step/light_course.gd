@@ -6,9 +6,9 @@ const ATLAS_WIDTH := 128
 const SPACING := 0.45
 const SAMPLE_INTERVAL := 0.1
 const TORCH_SAMPLE_INTERVAL := 1.0 / 30.0
-var full_exposure := 3.0
-var match_trace_seconds := 7.0
-var torch_trace_seconds := 10.0
+var full_exposure := 2.5
+var match_trace_seconds := 8.0
+var torch_trace_seconds := 30.0
 @onready var player: Player = $PlayerSpawn/Player
 @onready var lamp: Lamp = player.get_node("Camera3D/Flashlight")
 var points := PackedVector3Array()
@@ -20,7 +20,7 @@ var triangles := PackedInt32Array()
 var exposure: Image
 var exposure_texture: ImageTexture
 var material := ShaderMaterial.new()
-var dots_per_metre := 8.0:
+var dots_per_metre := 10.0:
 	set(value):
 		dots_per_metre = value
 		material.set_shader_parameter("dots_per_metre", value)
@@ -62,6 +62,7 @@ func _ready() -> void:
 	material.set_shader_parameter("trace_limits", Vector2(match_trace_seconds, torch_trace_seconds))
 	$Surfaces.mesh = mesh
 	$Surfaces.material_override = material
+	$Diagnostics/Tuning.initialize()
 
 func build_face(center: Vector3, size: Vector3, normal: Vector3, object_name: String) -> void:
 	var u := Vector3.RIGHT if normal.x == 0 else Vector3.BACK
@@ -93,8 +94,6 @@ func build_face(center: Vector3, size: Vector3, normal: Vector3, object_name: St
 func _physics_process(delta: float) -> void:
 	elapsed += delta
 	material.set_shader_parameter("clock_seconds", elapsed)
-	if player.global_position.z < -19.5:
-		lamp.equip_torch()
 	var source := 0
 	if lamp.burn_left > 0.0:
 		source = 1
@@ -151,11 +150,15 @@ func record_light(torch: bool, interval: float) -> void:
 		var x := i % ATLAS_WIDTH
 		var y := floori(float(i) / ATLAS_WIDTH)
 		var stamp := exposure.get_pixel(x, y)
-		var strength := 1.0 / (1.0 + log(1.0 + offset.length_squared() / (falloff_scale * falloff_scale)))
-		strength *= 1.0 - smoothstep(reach * 0.7, reach, distance)
-		strength *= lerpf(0.22, 1.0, maxf(0.0, normals[i].dot(-ray)))
+		var strength: float
 		if torch:
-			strength *= pow(smoothstep(cutoff, 1.0, angular), 0.55 / lamp.spot_angle_attenuation)
+			# Equal dwell earns equal time across the beam core, including grazing floors.
+			var rim := smoothstep(cutoff, lerpf(cutoff, 1.0, 0.18), angular)
+			strength = rim * (1.0 - smoothstep(reach * 0.75, reach, distance))
+		else:
+			strength = 1.0 / (1.0 + log(1.0 + offset.length_squared() / (falloff_scale * falloff_scale)))
+			strength *= 1.0 - smoothstep(reach * 0.7, reach, distance)
+			strength *= lerpf(0.22, 1.0, maxf(0.0, normals[i].dot(-ray)))
 		if last_seen[i] == sample_number - 1:
 			dwell[i] = minf(full_exposure, dwell[i] + interval)
 		else:

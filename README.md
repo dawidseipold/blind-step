@@ -9,4 +9,4 @@ Na planszy Bench licznik Stamina pokazuje kondycję w skali 0–100. F3 ukrywa l
 
 [Ruch, rezerwa kondycji i sterowanie ślizgiem](docs/ruch.md). Ctrl podczas rozpędzonego sprintu inicjuje ślizg.
 
-F zapala i gasi zapałkę we wnętrzu, a po wyjściu przełącza latarkę. R wymienia baterię. [Światło i pamięć terenu](docs/latarka.md).
+F4 wybiera mapę, źródło światła i optykę bodycam. F zapala lub gasi wybrane źródło. R wymienia baterię. [Światło i pamięć terenu](docs/latarka.md).

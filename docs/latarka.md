@@ -1,35 +1,34 @@
-# Światło i pamięć terenu
+# Światło, kamera i stanowiska testowe
 
-## Sterowanie i zapasy
+F5 uruchamia ciemny korytarz. F4 otwiera panel i zwalnia kursor. Kolejne F4 wraca do rozglądania się. Panel pozwala zmienić mapę oraz wybrać zapałkę lub latarkę w dowolnym miejscu. Zmiana źródła gasi poprzednie i zachowuje zapasy. Zmiana mapy rozpoczyna próbę od punktu startowego z nowymi zapasami, zachowując profil suwaków, wybrane źródło i przełączniki do końca sesji. F3 przełącza diagnostykę.
 
-F5 otwiera LightCourse. Gracz zaczyna we wnętrzu z pięcioma zapałkami. F zapala jedną i od razu odejmuje ją z pudełka. Płomień gaśnie po 5 sekundach albo zaraz po ponownym F. Wcześniejsze zgaszenie nie zwraca zapałki. Po wypaleniu ostatniej można nadal przejść trasę po ciemku. F3 pokazuje zapas i czas palenia.
-
-Pierwsze przekroczenie progu dziedzińca wyposaża gracza w latarkę z pełnym ogniwem i dwiema bateriami zapasowymi. Jest to skrót do testu przyszłej sekcji plenerowej. Latarka zostaje przy graczu także przy powrocie. F przełącza światło. Ogniwo zapewnia łącznie 25 s świecenia; częste włączanie i wyłączanie zachowuje pozostały czas. Przy zerze światło gaśnie. R wymienia rozładowaną lub częściowo zużytą baterię na pełną, odrzucając resztę starej. Pełna bateria nie zużywa zapasowej przy R. Przy wymianie w trakcie świecenia snop pozostaje włączony; po całkowitym rozładowaniu trzeba ponownie wcisnąć F.
-
-| Źródło | Kształt światła | Pamięć powierzchni |
+| Parametr startowy | Zapałka | Latarka |
 |---|---|---|
-| Zapałka | Ciepła poświata dookoła, zasięg 5 m, łagodna zmiana jasności do ±3,5% z głównym okresem 2,8 s | Bursztynowe punkty do 7 s |
-| Latarka | Wąski stożek w kierunku patrzenia, półkąt 28,63°, energia 2,7, zasięg 20 m (korytarz ma 28 m), radialnie wygaszone brzegi | Punktowa pamięć do 10 s |
+| Zasięg | 5 m dookoła | 15 m do przodu |
+| Moc | 1,0 | 2,5 |
+| Kształt światła | Wahanie 0,035, główny okres 2,8 s | Półkąt 28,6°, wygaszenie brzegu 0,5 |
+| Maksymalny ślad po zgaszeniu | 8 s, bursztynowy | 30 s, chłodny |
 
-## Co pamięta gracz
+## Zapasy
 
-Punkty pojawiają się na oświetlonej powierzchni, a ich trwałość zależy od czasu ciągłej ekspozycji. Pierwsze ćwierć sekundy buduje widoczność wzoru. Przy trzech sekundach skutecznej ekspozycji w jasnym centrum osiągany jest limit czasu śladu. Granice snopa, odległość i kąt padania zmniejszają siłę zapisu. Odwrócenie źródła lub zgaszenie przerywa gromadzenie; krótki powrót nie kasuje silniejszego zapisu. Zapis wymaga widoczności zarówno od strony oka, jak i źródła. Maleje logarytmicznie z odległością i płynnie zanika w ostatnich 30% zasięgu. Poza zasięgiem źródła oraz poza stożkiem latarki nowa ekspozycja wynosi zero.
+Domyślnie w obu stanowiskach włączone są nieskończone zasoby. Zatrzymują czas palenia i zużycie baterii, pozwalają korzystać z pustego pudełka i zapewniają pełną kondycję do sprintu i ślizgu. Wyłącz opcję w F4 do prób przetrwania.
 
-W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbkuje zapałkę do 10 razy na sekundę, a latarkę do 30 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader dla każdego piksela miesza wygasające próbki z sąsiedztwa 4 × 4 na tej samej ścianie lub podłodze. Dzięki temu granica śladu łagodnie zanika. Drobne detale cienia są przybliżone. Po wygaśnięciu śladu przeszkody mają ginąć w ciemności. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
+Gracz zaczyna z pięcioma zapałkami, pełnym ogniwem i dwiema bateriami zapasowymi. F zapala zapałkę na 5 s. Zgaszenie przed czasem zużywa całą zapałkę. Przy wybranej latarce F przełącza snop. Jedno ogniwo starcza łącznie na 25 s. R wymienia częściowo zużyte lub puste ogniwo, odrzucając pozostały ładunek. Pełne ogniwo nie podlega wymianie. Po wyczerpaniu ogniwa latarkę trzeba ponownie włączyć.
 
-Zapałka zostawia delikatną ciepłą poświatę i bursztynowe punkty, a latarka chłodne punkty. Domyślnie na metr przypada osiem pozycji wzoru wzdłuż każdej osi powierzchni. Mają różne progi ekspozycji: kolejne zapalają się w miarę zapamiętywania fragmentu. Nowe punkty krótko się rozjaśniają. Po zgaszeniu światła wzór zostaje na bryle, rzednie i znika. To informacja o pamięci bohatera.
+## Pamięć powierzchni
 
-Cała trasa LightCourse ma ciągły dach, a ściany dziedzińca stykają się z jego spodem. Światło otoczenia jest wyłączone. Dziedziniec testuje zasady latarki plenerowej w kontrolowanej ciemności.
+Pełna ekspozycja trwa 2,5 s. Pierwsze około 0,25 s stopniowo ujawnia wzór, krótsze oświetlenie daje krótszy ślad. Przerwa resetuje ciągłą ekspozycję, a rozpoczęty ślad wygasa na powierzchni. Wzór ma domyślnie 10 punktów na metr na każdej osi. Dla drobnych punktów w oddali shader uśrednia pokrycie piksela, także przy patrzeniu wzdłuż podłogi.
 
-## Strojenie podczas gry
+W rdzeniu snopa latarki taka sama ekspozycja daje podłodze, ścianie i przeszkodzie ten sam czas pamięci do 75% zasięgu (11,25 m). W ostatniej ćwiartce czas płynnie spada do zera. Miękka krawędź wiązki daje słabszy zapis. Zapałka zachowuje stopniowy logarytmiczny spadek z odległością i wpływ kąta padania. Dla obu źródeł zasłonięcie od strony oka lub źródła blokuje zapis. Próbkowanie brył ma rozstaw do 0,45 m i częstotliwość 10 Hz dla zapałki oraz 30 Hz dla latarki. Shader interpoluje próbki na każdej powierzchni osobno. Światło okienne służy do oświetlenia sceny.
 
-F4 otwiera panel z suwakami i zwalnia kursor. Ponowne F4 przywraca sterowanie myszą. Suwaki działają w bieżącej sesji. Czas palenia określa długość następnej zapałki. Zmiany zapisu najlepiej porównywać po wygaśnięciu poprzedniego śladu.
+## Bodycam i mapy
 
-Przełącznik „Nieskończone zasoby” pozwala zapalać i gasić zapałkę także przy pustym pudełku, zatrzymuje czas palenia i rozładowanie latarki, chroni zapas baterii oraz przywraca pełną kondycję do sprintu i ślizgu. Po wyłączeniu zużycie wraca.
+Optyka jest domyślnie włączona. W sekcji Bodycam można ustawić pionowe pole widzenia (startowo 92°), dystorsję (0,22), winietę (0,32) i szum cieni (0,12). Wyłączenie przywraca zwykłą kamerę i jej pierwotne pole widzenia. Filtr działa przed interfejsem.
 
-## Próba w grze
+Korytarz i jego dziedziniec mają ciągły dach oraz ciemne otoczenie do próby poświaty. Sala pałacu zachowuje niski strop do ślizgu, przegrodę, wnękę i cel ze stanowiska Bench. Salę zamykają cztery ściany oraz dach. Trzy okna z bocznymi źródłami symulują światło dzienne.
 
-1. W korytarzu znajdź przejście obok skrzyni. Zgaś zapałkę, odwróć się i od razu spójrz z powrotem. Zapamiętana strona skrzyni powinna jeszcze odcinać się od otoczenia.
-2. Miń dwie boczne wnęki, omijając regał i skrzynie. Przy niskiej półce można przykucnąć lub ją obejść. Przy wyjściu nie ma stałego źródła światła.
-3. Oświetl tę samą bliską powierzchnię przez jedną i trzy sekundy, gasząc źródło po każdej próbie i czekając na wygaśnięcie. Powtórz na dziedzińcu z latarką. Sprawdź dłuższy ślad, stan ogniwa po przerwie i wymianę przez R.
-4. F5 od początku przywraca wszystkie zapasy. Jasna plansza do prób ruchu pozostaje dostępna przez otwarcie bench.tscn i F6.
+## Próba odbioru
+
+1. Wybierz latarkę i oświetl przez 2,5 s jednocześnie bok przeszkody i pobliską podłogę. Zgaś światło. Porównaj punkty wewnątrz snopa, a następnie obszary przy granicy 15 m.
+2. Zmień źródło obok tej samej przeszkody. Sprawdź barwę zapałki i krótszy czas śladu.
+3. Przejdź z F4 do sali pałacu. Patrząc na ramę okna włącz i wyłącz bodycam, następnie porównaj dystorsję przy tym samym polu widzenia. Wróć do korytarza i sprawdź ustawienia.

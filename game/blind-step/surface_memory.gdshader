@@ -3,7 +3,8 @@ shader_type spatial;
 uniform sampler2D exposure_map : filter_nearest, repeat_disable;
 uniform float clock_seconds;
 uniform float trace_until;
-uniform float dots_per_metre = 8.0;
+uniform float full_exposure = 2.5;
+uniform float dots_per_metre = 10.0;
 uniform vec2 trace_limits;
 varying flat ivec3 face_grid;
 varying vec2 surface_position;
@@ -30,7 +31,7 @@ vec2 sample_trace(ivec2 cell, int atlas_width) {
 	// RG stores expiry, BA stores the lifetime earned by each source.
 	vec2 life = stamp.ba;
 	vec2 fade = clamp((stamp.rg - clock_seconds) / max(life, vec2(0.0001)), vec2(0.0), vec2(1.0));
-	vec2 onset = smoothstep(vec2(0.0), trace_limits * (0.25 / 3.0), life);
+	vec2 onset = smoothstep(vec2(0.0), trace_limits * (0.25 / full_exposure), life);
 	return fade * onset * pow(clamp(life / trace_limits, vec2(0.0), vec2(1.0)), vec2(0.55));
 }
 
@@ -58,7 +59,8 @@ void fragment() {
 	float radius = 0.075 + 0.045 * grain;
 	float aa = max(0.015, footprint * 0.6);
 	float dot_mask = 1.0 - smoothstep(radius - aa, radius + aa, length(fract(grid) - center));
-	dot_mask *= 1.0 - smoothstep(0.45, 1.2, footprint);
+	// Keep average coverage when distant floor dots project below a pixel.
+	dot_mask = mix(dot_mask, 3.14159 * radius * radius, smoothstep(0.35, 0.9, footprint));
 	// Individual returns appear in sequence as local exposure builds up.
 	float threshold = 0.015 + 0.38 * grain;
 	vec2 returns = smoothstep(vec2(threshold), vec2(threshold + 0.12), trace) * trace;

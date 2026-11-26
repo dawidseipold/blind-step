@@ -34,16 +34,16 @@ current = true
 
 [node name="Flashlight" type="SpotLight3D" parent="Camera3D"]
 position = Vector3(0.12, -0.12, 0)
-light_energy = 2.7
+light_energy = 2.5
 light_projector = SubResource("SoftBeam")
-spot_range = 20.0
-spot_angle = 28.6326
-spot_angle_attenuation = 0.55
+spot_range = 15.0
+spot_angle = 28.6
+spot_angle_attenuation = 0.5
 shadow_enabled = true
 script = ExtResource("Flashlight")
 
 [node name="Match" type="OmniLight3D" parent="Camera3D/Flashlight"]
 light_color = Color(1, 0.57, 0.24, 1)
-light_energy = 0.85
+light_energy = 1.0
 omni_range = 5.0
 shadow_enabled = true
