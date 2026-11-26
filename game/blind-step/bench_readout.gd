@@ -12,11 +12,12 @@ func _process(_delta: float) -> void:
 			lines.append("Ślizg")
 		if player.reserve_wait:
 			lines.append("Rezerwa · dłuższy odpoczynek")
-		if lamp.remaining > 0.0:
-			var phase := "impuls" if lamp.remaining > lamp.fade_seconds else "wygaszanie"
-			lines.append("Latarka · %s · %.1f s" % [phase, lamp.remaining])
+		if lamp.has_torch:
+			lines.append("Latarka %d%% · zapas %d · F światło / R bateria" % [ceili(100.0 * lamp.charge / lamp.cell_seconds), lamp.spare_cells])
 		else:
-			lines.append("Latarka · gotowa")
+			lines.append("Zapałki %d · F zapal / zgaś" % lamp.matches)
+			if lamp.burn_left > 0.0:
+				lines.append("Płomień %.1f s" % lamp.burn_left)
 		text = "\n".join(lines)
 
 func _unhandled_key_input(event: InputEvent) -> void:

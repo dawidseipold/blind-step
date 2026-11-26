@@ -2,13 +2,9 @@
 
 Bodycam FPP o estetyce PSX. Scena Bench to laboratorium w skali metrów. Neutralne bryły, wyraźne krawędzie i stałe punkty prób pozwalają porównać dwie wersje mechaniki. Lokacja fabularna i docelowa pętla pozostają otwarte.
 
-## Latarka impulsowa
+## Światło i ciemność
 
-Działanie F, czasy oraz próbę odbioru w Bench opisuje [mechanika latarki](docs/latarka.md). Plan dla baterii to trzy użycia na próbę, z jednym ładunkiem zużywanym przy rozpoczęciu impulsu. Klik rozładowania należy do bloku audio.
-
-Po zgaśnięciu w półmroku nadal widać obrys przeszkody. Z czasem wraca czytelność dużych kształtów. Dystorsja obiektywu rośnie ku brzegom, a siła ziarna zależy od jasności. Stabilny środek i natychmiastowa reakcja myszy ułatwiają orientację. Kadr z progu służy do porównania wersji.
-
-W późniejszym teście istota światłoczuła cofa się po trafieniu wiązką. Druga reaguje zainteresowaniem na widoczny błysk. Ściana zasłania wiązkę. Pytanie do obserwatora brzmi „Co sprawiło, że zachowałeś ostatni impuls?”. Reakcję na hałas testujemy osobno. Strzał, chodzenie po ścianach i próba pętli survivalowej są dalszymi eksperymentami.
+W domu osobny płomień kosztuje jedną zapałkę. Po wyjściu snop latarki zużywa wymienną baterię proporcjonalnie do czasu świecenia. Oświetlone fragmenty terenu na krótko zostają widoczne. Zasięgi, czasy i próby odbioru opisuje [mechanika światła](docs/latarka.md). Reakcje istot, dźwięki i optyka kamery mają osobne zadania.
 
 ## Audio i wygląd
 

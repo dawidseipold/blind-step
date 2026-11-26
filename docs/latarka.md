@@ -1,19 +1,25 @@
-# Latarka impulsowa
+# Światło i pamięć terenu
 
-## Działanie w Bench · T05
+## Sterowanie i zapasy
 
-Gracz zaczyna ze zgaszoną latarką. Jedno naciśnięcie **F** natychmiast daje pełny snop w kierunku patrzenia. Przez pierwszą sekundę moc wynosi 100%. Przez kolejną płynnie spada do zera. Latarka jest wtedy gotowa na następne naciśnięcie. Kolejne F w trakcie impulsu jest pomijane; przytrzymany klawisz nie wyzwala następnego impulsu po zgaśnięciu.
+F5 otwiera LightCourse. Gracz zaczyna we wnętrzu z pięcioma zapałkami. F zapala jedną i od razu odejmuje ją z pudełka. Płomień gaśnie po 7 sekundach albo zaraz po ponownym F. Wcześniejsze zgaszenie nie zwraca zapałki. Po wypaleniu ostatniej można nadal przejść trasę po ciemku. F3 pokazuje zapas i czas palenia.
 
-Źródło światła jest zamocowane przy kamerze, lekko w prawo i poniżej oczu. Zasięg startowy wynosi 15 m, półkąt stożka 24°, a energia 4. Cienie są włączone. Czas świecenia, czas wygaszania i parametry snopa można dostroić na węźle Flashlight sceny gracza.
+Pierwsze przekroczenie progu dziedzińca wyposaża gracza w latarkę z pełnym ogniwem i dwiema bateriami zapasowymi. Jest to skrót do testu przyszłej sekcji plenerowej. Latarka zostaje przy graczu także przy powrocie. F przełącza światło. Ogniwo zapewnia łącznie 25 s świecenia; częste włączanie i wyłączanie zachowuje pozostały czas. Przy zerze światło gaśnie. R wymienia rozładowaną lub częściowo zużytą baterię na pełną, odrzucając resztę starej. Pełna bateria nie zużywa zapasowej przy R. Przy wymianie w trakcie świecenia snop pozostaje włączony; po całkowitym rozładowaniu trzeba ponownie wcisnąć F.
 
-Odczyt testowy **F3** pokazuje gotowość, impuls lub wygaszanie. Liczba sekund w trakcie obu faz oznacza czas do całkowitego zgaśnięcia. W T05 można powtarzać próbę dowolną liczbę razy.
+| Źródło | Kształt światła | Pamięć powierzchni |
+|---|---|---|
+| Zapałka | Ciepła poświata dookoła, zasięg 3,6 m | Słabszy ślad do 1,8 s |
+| Latarka | Wąski stożek w kierunku patrzenia, półkąt 24°, zasięg 15 m | Mocniejszy ślad do 3,5 s |
 
-## Próba odbioru
+## Co pamięta gracz
 
-1. Na Bench skieruj wzrok na wnękę za przesłoną. Wciśnij F i zapamiętaj, które krawędzie ujawnia snop. Zbliż się do przesłony i porównaj cień.
-2. Naciśnij F ponownie podczas wygaszania. Światło powinno zgasnąć w pierwotnym terminie, około dwóch sekund od pierwszego naciśnięcia.
-3. Przytrzymaj F aż do zgaśnięcia, puść i naciśnij jeszcze raz. Dopiero świeże naciśnięcie uruchamia następny impuls. F3 pozwala porównać ujęcia z ukrytym odczytem.
+Pamięć jest przypisana do powierzchni. Odejście, obrót głowy lub zgaszenie źródła pozwala porównać ostatnio oświetlone fragmenty z ciemnym tłem. Każdy fragment wygasa od swojej ostatniej ekspozycji. Przeszkoda blokuje zapis po przeciwnej stronie. Ślad słabnie przy granicy zasięgu, a dla latarki również na brzegu snopa.
 
-## Zaplanowane rozszerzenia
+W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbuje światło do 10 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader interpoluje ślad między punktami, więc drobne detale cienia są przybliżone. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
 
-Bateria i liczba pozostałych użyć mają własne zadanie T06. Adaptacja wzroku, klik pustej latarki i reakcje istot należą do kolejnych prób kamery, audio i percepcji.
+## Próba w grze
+
+1. W korytarzu znajdź przejście obok skrzyni. Zgaś zapałkę, odwróć się i od razu spójrz z powrotem. Zapamiętana strona skrzyni powinna jeszcze odcinać się od otoczenia.
+2. Miń dwie boczne wnęki, omijając regał i skrzynie. Przy niskiej półce można przykucnąć lub ją obejść. Słabe światło przy wyjściu wskazuje dziedziniec.
+3. Na dworze krótko oświetl słupek, przesuń snop i zgaś światło. Sprawdź dłuższy ślad, stan ogniwa po przerwie i wymianę przez R.
+4. F5 od początku przywraca wszystkie zapasy. Jasna plansza do prób ruchu pozostaje dostępna przez otwarcie bench.tscn i F6.
