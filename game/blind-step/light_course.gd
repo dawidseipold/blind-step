@@ -6,7 +6,8 @@ const ATLAS_WIDTH := 128
 const SPACING := 0.45
 const SAMPLE_INTERVAL := 0.1
 const TORCH_SAMPLE_INTERVAL := 1.0 / 30.0
-const FOCUS_SECONDS := 0.25
+const FULL_EXPOSURE := 3.0
+const MATCH_TRACE_SECONDS := 1.4
 const TRACE_SECONDS := 5.0
 @onready var player: Player = $PlayerSpawn/Player
 @onready var lamp: Lamp = player.get_node("Camera3D/Flashlight")
@@ -23,7 +24,7 @@ var elapsed := 0.0
 var trace_until := 0.0
 var until_sample := 0.0
 var previous_source := 0
-var previous_torch_sample := 0.0
+var previous_sample := 0.0
 var sample_number := 1
 var last_seen := PackedInt32Array()
 var dwell := PackedFloat32Array()
@@ -53,7 +54,7 @@ func _ready() -> void:
 	exposure_texture = ImageTexture.create_from_image(exposure)
 	material.shader = preload("res://surface_memory.gdshader")
 	material.set_shader_parameter("exposure_map", exposure_texture)
-	material.set_shader_parameter("torch_trace_seconds", TRACE_SECONDS)
+	material.set_shader_parameter("trace_limits", Vector2(MATCH_TRACE_SECONDS, TRACE_SECONDS))
 	$Surfaces.mesh = mesh
 	$Surfaces.material_override = material
 
@@ -97,13 +98,12 @@ func _physics_process(delta: float) -> void:
 	until_sample -= delta
 	if source != 0 and (source != previous_source or until_sample <= 0.0):
 		var interval := 0.0
-		if source == 2:
-			sample_number += 1
-			if previous_source == 2:
-				interval = elapsed - previous_torch_sample
-			else:
-				sample_number += 1 # A new switch-on breaks continuous exposure.
-			previous_torch_sample = elapsed
+		sample_number += 1
+		if previous_source == source:
+			interval = elapsed - previous_sample
+		else:
+			sample_number += 1 # A new source or switch-on starts a new exposure.
+		previous_sample = elapsed
 		record_light(source == 2, interval)
 		until_sample = TORCH_SAMPLE_INTERVAL if source == 2 else SAMPLE_INTERVAL
 	previous_source = source
@@ -134,21 +134,23 @@ func record_light(torch: bool, interval: float) -> void:
 			var ray := offset.normalized()
 			strength *= smoothstep(cutoff, 1.0, forward.dot(ray))
 			strength *= maxf(0.0, normals[i].dot(-ray))
-			if last_seen[i] == sample_number - 1:
-				dwell[i] = minf(1.0, dwell[i] + interval * strength / FOCUS_SECONDS)
-			else:
-				dwell[i] = 0.0
-			last_seen[i] = sample_number
-			# Weak or fleeting illumination leaves a shorter and dimmer trace.
-			var memory := strength * smoothstep(0.0, 1.0, dwell[i])
-			var expiry := elapsed + memory * TRACE_SECONDS
-			if memory > 0.0 and expiry > stamp.g:
-				stamp.g = expiry
-				stamp.a = elapsed
-		elif strength >= stamp.b * clampf((stamp.r - elapsed) / 1.8, 0.0, 1.0):
-			stamp.r = elapsed + 1.8
-			stamp.b = strength
+		if last_seen[i] == sample_number - 1:
+			dwell[i] = minf(FULL_EXPOSURE, dwell[i] + interval * strength)
+		else:
+			dwell[i] = 0.0
+		last_seen[i] = sample_number
+		var limit := TRACE_SECONDS if torch else MATCH_TRACE_SECONDS
+		var lifetime := limit * strength * dwell[i] / FULL_EXPOSURE
+		var expiry := elapsed + lifetime
+		if lifetime <= 0.0:
+			continue
+		if torch and expiry > stamp.g:
+			stamp.g = expiry
+			stamp.a = lifetime
+		elif not torch and expiry > stamp.r:
+			stamp.r = expiry
+			stamp.b = lifetime
 		exposure.set_pixel(x, y, stamp)
 	exposure_texture.update(exposure)
-	trace_until = maxf(trace_until, elapsed + (TRACE_SECONDS if torch else 1.8))
+	trace_until = maxf(trace_until, elapsed + (TRACE_SECONDS if torch else MATCH_TRACE_SECONDS))
 	material.set_shader_parameter("trace_until", trace_until)

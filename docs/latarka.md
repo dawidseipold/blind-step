@@ -2,28 +2,28 @@
 
 ## Sterowanie i zapasy
 
-F5 otwiera LightCourse. Gracz zaczyna we wnętrzu z pięcioma zapałkami. F zapala jedną i od razu odejmuje ją z pudełka. Płomień gaśnie po 7 sekundach albo zaraz po ponownym F. Wcześniejsze zgaszenie nie zwraca zapałki. Po wypaleniu ostatniej można nadal przejść trasę po ciemku. F3 pokazuje zapas i czas palenia.
+F5 otwiera LightCourse. Gracz zaczyna we wnętrzu z pięcioma zapałkami. F zapala jedną i od razu odejmuje ją z pudełka. Płomień gaśnie po 5 sekundach albo zaraz po ponownym F. Wcześniejsze zgaszenie nie zwraca zapałki. Po wypaleniu ostatniej można nadal przejść trasę po ciemku. F3 pokazuje zapas i czas palenia.
 
 Pierwsze przekroczenie progu dziedzińca wyposaża gracza w latarkę z pełnym ogniwem i dwiema bateriami zapasowymi. Jest to skrót do testu przyszłej sekcji plenerowej. Latarka zostaje przy graczu także przy powrocie. F przełącza światło. Ogniwo zapewnia łącznie 25 s świecenia; częste włączanie i wyłączanie zachowuje pozostały czas. Przy zerze światło gaśnie. R wymienia rozładowaną lub częściowo zużytą baterię na pełną, odrzucając resztę starej. Pełna bateria nie zużywa zapasowej przy R. Przy wymianie w trakcie świecenia snop pozostaje włączony; po całkowitym rozładowaniu trzeba ponownie wcisnąć F.
 
 | Źródło | Kształt światła | Pamięć powierzchni |
 |---|---|---|
-| Zapałka | Ciepła poświata dookoła, zasięg 3,6 m | Słabszy ślad do 1,8 s |
-| Latarka | Wąski stożek w kierunku patrzenia, półkąt 20°, energia 3,4, zasięg 15 m | Punktowa pamięć do 5 s |
+| Zapałka | Ciepła poświata dookoła, zasięg 2,7 m | Bursztynowe punkty do 1,4 s |
+| Latarka | Wąski stożek w kierunku patrzenia, półkąt 20°, energia 3,4, zasięg 15 m, radialnie wygaszone brzegi | Punktowa pamięć do 5 s |
 
 ## Co pamięta gracz
 
-Pamięć jest przypisana do powierzchni. Odejście, obrót głowy lub zgaszenie źródła pozwala porównać ostatnio oświetlone fragmenty z ciemnym tłem. Bezpośrednie światło reaguje natychmiast. Pamięć latarki narasta osobno dla każdego stale oświetlanego fragmentu. Dla dobrze oświetlonej powierzchni ustawionej na wprost potrzeba około 0,25 s, aby uzyskać pełny ślad. Brzeg snopa, większa odległość i światło padające pod ostrym kątem dają słabszy i krótszy ślad. Po opuszczeniu snopa zapis wygasa. Nowe skupienie wiązki znów nabiera siły; krótki przelot nie przedłuża silniejszego wcześniejszego śladu. Zapałka zachowuje dotychczasową poświatę. Przeszkoda blokuje zapis po przeciwnej stronie. Ślad słabnie przy granicy zasięgu, a dla latarki również na brzegu snopa.
+Punkty pojawiają się na oświetlonej powierzchni, a ich trwałość zależy od czasu ciągłej ekspozycji. Pierwsze ćwierć sekundy buduje widoczność wzoru. Przy trzech sekundach skutecznej ekspozycji w jasnym centrum osiągany jest limit czasu śladu. Granice snopa, odległość i kąt padania zmniejszają siłę zapisu. Odwrócenie źródła lub zgaszenie przerywa gromadzenie; krótki powrót nie kasuje silniejszego zapisu. Cienie blokują zapis.
 
-W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbkuje zapałkę do 10 razy na sekundę, a latarkę do 30 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader dla każdego piksela miesza wygasające próbki z sąsiedztwa 4 × 4 na tej samej ścianie lub podłodze. Dzięki temu granica śladu łagodnie zanika. Drobne detale cienia są przybliżone. Po wygaśnięciu śladu przeszkody mają ginąć w ciemności. Przy wyjściu pozostaje słaba wskazówka świetlna w promieniu 2,2 m. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
+W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbkuje zapałkę do 10 razy na sekundę, a latarkę do 30 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader dla każdego piksela miesza wygasające próbki z sąsiedztwa 4 × 4 na tej samej ścianie lub podłodze. Dzięki temu granica śladu łagodnie zanika. Drobne detale cienia są przybliżone. Po wygaśnięciu śladu przeszkody mają ginąć w ciemności. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
 
-Pod wiązką latarki na oświetlonych powierzchniach pojawiają się chłodne punkty. Mają różne progi ekspozycji: kolejne zapalają się w miarę zapamiętywania fragmentu. Nowe punkty krótko się rozjaśniają. Po zgaszeniu światła wzór zostaje na bryle, rzednie i znika. To informacja o pamięci bohatera. Zapałka daje miękką poświatę.
+Zapałka zostawia bursztynowe punkty, a latarka chłodne. Mają różne progi ekspozycji: kolejne zapalają się w miarę zapamiętywania fragmentu. Nowe punkty krótko się rozjaśniają. Po zgaszeniu światła wzór zostaje na bryle, rzednie i znika. To informacja o pamięci bohatera.
 
-Cała trasa LightCourse ma ciągły dach, a ściany dziedzińca stykają się z jego spodem. Światło otoczenia jest wyłączone. Przy progu działa lokalna lampa orientacyjna; dziedziniec testuje zasady latarki plenerowej w kontrolowanej ciemności.
+Cała trasa LightCourse ma ciągły dach, a ściany dziedzińca stykają się z jego spodem. Światło otoczenia jest wyłączone. Dziedziniec testuje zasady latarki plenerowej w kontrolowanej ciemności.
 
 ## Próba w grze
 
 1. W korytarzu znajdź przejście obok skrzyni. Zgaś zapałkę, odwróć się i od razu spójrz z powrotem. Zapamiętana strona skrzyni powinna jeszcze odcinać się od otoczenia.
-2. Miń dwie boczne wnęki, omijając regał i skrzynie. Przy niskiej półce można przykucnąć lub ją obejść. Słabe światło przy wyjściu wskazuje dziedziniec.
-3. Na dworze krótko oświetl słupek, przesuń snop i zgaś światło. Sprawdź dłuższy ślad, stan ogniwa po przerwie i wymianę przez R.
+2. Miń dwie boczne wnęki, omijając regał i skrzynie. Przy niskiej półce można przykucnąć lub ją obejść. Przy wyjściu nie ma stałego źródła światła.
+3. Oświetl tę samą bliską powierzchnię przez jedną i trzy sekundy, gasząc źródło po każdej próbie i czekając na wygaśnięcie. Powtórz na dziedzińcu z latarką. Sprawdź dłuższy ślad, stan ogniwa po przerwie i wymianę przez R.
 4. F5 od początku przywraca wszystkie zapasy. Jasna plansza do prób ruchu pozostaje dostępna przez otwarcie bench.tscn i F6.

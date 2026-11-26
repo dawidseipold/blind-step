@@ -3,7 +3,7 @@ shader_type spatial;
 uniform sampler2D exposure_map : filter_nearest, repeat_disable;
 uniform float clock_seconds;
 uniform float trace_until;
-uniform float torch_trace_seconds;
+uniform vec2 trace_limits;
 varying flat ivec3 face_grid;
 varying vec2 surface_position;
 
@@ -22,17 +22,19 @@ vec4 weights(float t) {
 			1.0 + 3.0*t + 3.0*t*t - 3.0*t*t*t, t*t*t) / 6.0;
 }
 
-vec3 sample_trace(ivec2 cell, int atlas_width) {
+vec2 sample_trace(ivec2 cell, int atlas_width) {
 	cell = clamp(cell, ivec2(0), face_grid.yz - ivec2(1));
 	int i = face_grid.x + cell.y * face_grid.y + cell.x;
 	vec4 stamp = texelFetch(exposure_map, ivec2(i % atlas_width, i / atlas_width), 0);
-	vec2 fade = clamp((stamp.rg - clock_seconds) / vec2(1.8, torch_trace_seconds), vec2(0.0), vec2(1.0));
-	float writing = 1.0 - smoothstep(0.0, 0.12, clock_seconds - stamp.a);
-	return vec3(fade.x * stamp.b, fade.y, writing * fade.y);
+	// RG stores expiry, BA stores the lifetime earned by each source.
+	vec2 life = stamp.ba;
+	vec2 fade = clamp((stamp.rg - clock_seconds) / max(life, vec2(0.0001)), vec2(0.0), vec2(1.0));
+	vec2 onset = smoothstep(vec2(0.0), trace_limits * (0.25 / 3.0), life);
+	return fade * onset;
 }
 
 void fragment() {
-	vec3 trace = vec3(0.0);
+	vec2 trace = vec2(0.0);
 	vec2 grid = surface_position * 11.0;
 	float footprint = max(length(dFdx(grid)), length(dFdy(grid)));
 	if (clock_seconds < trace_until) {
@@ -58,11 +60,10 @@ void fragment() {
 	dot_mask *= 1.0 - smoothstep(0.45, 1.2, footprint);
 	// Individual returns appear in sequence as local exposure builds up.
 	float threshold = 0.015 + 0.38 * grain;
-	float retained = smoothstep(threshold, threshold + 0.12, trace.y);
-	float edge = retained * (1.0 - smoothstep(threshold + 0.12, threshold + 0.35, trace.y));
-	vec3 dots = dot_mask * (vec3(0.42, 0.68, 0.74) * retained * trace.y
-			+ vec3(0.78, 0.90, 0.86) * edge * trace.z);
-	vec3 match_glow = COLOR.rgb * vec3(0.65, 0.78, 1.0) * trace.x * 0.13;
-	vec3 torch_glow = COLOR.rgb * vec3(0.48, 0.65, 0.72) * trace.y * 0.045;
-	EMISSION = max(match_glow, torch_glow + dots);
+	vec2 returns = smoothstep(vec2(threshold), vec2(threshold + 0.12), trace) * trace;
+	vec3 match_color = vec3(0.84, 0.38, 0.12);
+	vec3 torch_color = vec3(0.42, 0.68, 0.74);
+	vec3 dots = dot_mask * (match_color * returns.x + torch_color * returns.y);
+	vec3 haze = COLOR.rgb * (match_color * trace.x + torch_color * trace.y) * 0.045;
+	EMISSION = dots + haze;
 }

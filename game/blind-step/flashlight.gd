@@ -1,7 +1,7 @@
 extends SpotLight3D
 
 @export_range(1, 20) var matches := 5
-@export_range(1.0, 30.0) var burn_seconds := 7.0
+@export_range(1.0, 30.0) var burn_seconds := 5.0
 @export_range(1.0, 120.0) var cell_seconds := 25.0
 @export_range(0, 10) var spare_cells := 2
 @onready var charge := cell_seconds
