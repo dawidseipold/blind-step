@@ -39,3 +39,5 @@
 | T32 | Dach nad trasą świetlną | T28 | Dach pokrywa korytarz, wnęki i dziedziniec. Światło otoczenia jest wyłączone. |
 | T33 | Czas ekspozycji i miękkie światło | T31 | Sekunda oświetlania daje krótszy ślad niż trzy. Zapałka zostawia ciepłe punkty, latarka chłodne. |
 | T34 | Czytelniejsza trasa po zgaszeniu światła | T33 | Ślad latarki utrzymuje się do 10 s, zapałki do 7 s. Promień snopa na tej samej odległości zwiększony o 50% względem T33. |
+| T35 | Rozproszenie i zasięg światła | T34 | Zapałka sięga do 5 m, latarka do 20 m. Przeszkoda i granica snopa blokują zapis. |
+| T36 | Strojenie światła i zasobów | T35 | F4 zmienia parametry podczas gry. Tryb nieskończony obejmuje światło i kondycję. |

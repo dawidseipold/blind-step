@@ -16,8 +16,10 @@ func _process(_delta: float) -> void:
 			lines.append("Latarka %d%% · zapas %d · F światło / R bateria" % [ceili(100.0 * lamp.charge / lamp.cell_seconds), lamp.spare_cells])
 		else:
 			lines.append("Zapałki %d · F zapal / zgaś" % lamp.matches)
-			if lamp.burn_left > 0.0:
+			if lamp.burn_left > 0.0 and not lamp.unlimited:
 				lines.append("Płomień %.1f s" % lamp.burn_left)
+		if get_parent().has_node("Tuning"):
+			lines.append("F4 · strojenie światła" + (" · zasoby ∞" if lamp.unlimited else ""))
 		text = "\n".join(lines)
 
 func _unhandled_key_input(event: InputEvent) -> void:

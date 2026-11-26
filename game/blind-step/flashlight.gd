@@ -7,6 +7,11 @@ extends SpotLight3D
 @onready var charge := cell_seconds
 @onready var beam_energy := light_energy
 @onready var flame: OmniLight3D = $Match
+var unlimited := false
+var flicker_amplitude := 0.035
+var flicker_period := 2.8
+var flame_power := 0.85
+var flame_time := 0.0
 var burn_left := 0.0
 var has_torch := false
 
@@ -23,23 +28,28 @@ func equip_torch() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("flashlight"):
 		if has_torch:
-			light_energy = beam_energy if light_energy == 0.0 and charge > 0.0 else 0.0
+			light_energy = beam_energy if light_energy == 0.0 and (charge > 0.0 or unlimited) else 0.0
 		elif burn_left > 0.0:
 			burn_left = 0.0
 			flame.hide()
-		elif matches > 0:
-			matches -= 1
+		elif matches > 0 or unlimited:
+			if not unlimited:
+				matches -= 1
 			burn_left = burn_seconds
 			flame.show()
-	elif event.is_action_pressed("replace_cell") and has_torch and spare_cells > 0 and charge < cell_seconds:
+	elif event.is_action_pressed("replace_cell") and has_torch and not unlimited and spare_cells > 0 and charge < cell_seconds:
 		spare_cells -= 1
 		charge = cell_seconds
 
 func _physics_process(delta: float) -> void:
 	if burn_left > 0.0:
-		burn_left = maxf(0.0, burn_left - delta)
+		flame_time += delta
+		var phase := TAU * flame_time / flicker_period
+		flame.light_energy = flame_power * (1.0 + flicker_amplitude * (0.8 * sin(phase) + 0.2 * sin(phase * 0.63)))
+		if not unlimited:
+			burn_left = maxf(0.0, burn_left - delta)
 		flame.visible = burn_left > 0.0
-	elif light_energy > 0.0:
+	elif light_energy > 0.0 and not unlimited:
 		charge = maxf(0.0, charge - delta)
 		if charge <= 0.0:
 			light_energy = 0.0

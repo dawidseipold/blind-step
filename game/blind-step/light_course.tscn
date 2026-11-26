@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" path="res://player.tscn" id="Player"]
 [ext_resource type="Script" path="res://bench_readout.gd" id="Readout"]
 
+[ext_resource type="Script" path="res://light_tuning.gd" id="Tuning"]
+
 [sub_resource type="Environment" id="Night"]
 background_mode = 1
 background_color = Color(0.003, 0.004, 0.005, 1)
@@ -223,3 +225,9 @@ mouse_filter = 2
 theme_override_constants/outline_size = 4
 script = ExtResource("Readout")
 player = NodePath("../../PlayerSpawn/Player")
+
+[node name="Tuning" type="PanelContainer" parent="Diagnostics"]
+visible = false
+offset_left = 10
+offset_top = 8
+script = ExtResource("Tuning")

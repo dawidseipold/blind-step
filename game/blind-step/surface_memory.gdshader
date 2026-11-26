@@ -3,6 +3,7 @@ shader_type spatial;
 uniform sampler2D exposure_map : filter_nearest, repeat_disable;
 uniform float clock_seconds;
 uniform float trace_until;
+uniform float dots_per_metre = 8.0;
 uniform vec2 trace_limits;
 varying flat ivec3 face_grid;
 varying vec2 surface_position;
@@ -30,12 +31,12 @@ vec2 sample_trace(ivec2 cell, int atlas_width) {
 	vec2 life = stamp.ba;
 	vec2 fade = clamp((stamp.rg - clock_seconds) / max(life, vec2(0.0001)), vec2(0.0), vec2(1.0));
 	vec2 onset = smoothstep(vec2(0.0), trace_limits * (0.25 / 3.0), life);
-	return fade * onset;
+	return fade * onset * pow(clamp(life / trace_limits, vec2(0.0), vec2(1.0)), vec2(0.55));
 }
 
 void fragment() {
 	vec2 trace = vec2(0.0);
-	vec2 grid = surface_position * 11.0;
+	vec2 grid = surface_position * dots_per_metre;
 	float footprint = max(length(dFdx(grid)), length(dFdy(grid)));
 	if (clock_seconds < trace_until) {
 		ivec2 base = ivec2(floor(UV)) - ivec2(1);
@@ -54,16 +55,15 @@ void fragment() {
 	vec2 cell = floor(grid);
 	float grain = fract(sin(dot(cell, vec2(12.9898, 78.233))) * 4375.5453);
 	vec2 center = vec2(0.5) + 0.18 * vec2(grain - 0.5, fract(grain * 13.7) - 0.5);
-	float radius = 0.09 + 0.065 * grain;
+	float radius = 0.075 + 0.045 * grain;
 	float aa = max(0.015, footprint * 0.6);
 	float dot_mask = 1.0 - smoothstep(radius - aa, radius + aa, length(fract(grid) - center));
 	dot_mask *= 1.0 - smoothstep(0.45, 1.2, footprint);
 	// Individual returns appear in sequence as local exposure builds up.
 	float threshold = 0.015 + 0.38 * grain;
 	vec2 returns = smoothstep(vec2(threshold), vec2(threshold + 0.12), trace) * trace;
-	vec3 match_color = vec3(0.84, 0.38, 0.12);
 	vec3 torch_color = vec3(0.42, 0.68, 0.74);
-	vec3 dots = dot_mask * (match_color * returns.x + torch_color * returns.y);
-	vec3 haze = COLOR.rgb * (match_color * trace.x + torch_color * trace.y) * 0.045;
-	EMISSION = dots + haze;
+	vec3 dots = dot_mask * (torch_color * returns.y + vec3(0.45, 0.23, 0.095) * returns.x);
+	vec3 remembered_match = COLOR.rgb * vec3(0.29, 0.16, 0.075) * trace.x;
+	EMISSION = remembered_match + dots + COLOR.rgb * torch_color * trace.y * 0.045;
 }

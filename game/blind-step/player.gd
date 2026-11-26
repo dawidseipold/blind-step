@@ -26,6 +26,7 @@ var ran_last_tick := false
 var slide_left := 0.0
 var slide_velocity := Vector2.ZERO
 var crouching := false
+var unlimited_stamina := false
 var stamina := 1.0
 var recovery_wait := 0.0
 var exhausted := false
@@ -94,6 +95,8 @@ func _physics_process(delta: float) -> void:
 		stamina = minf(1.0, stamina + delta / recovery_seconds)
 
 func spend_stamina(amount: float) -> void:
+	if unlimited_stamina:
+		return
 	stamina = maxf(0.0, stamina - amount)
 	reserve_wait = stamina <= RESERVE or is_equal_approx(stamina, RESERVE)
 	exhausted = is_zero_approx(stamina)

@@ -8,18 +8,24 @@ Pierwsze przekroczenie progu dziedzińca wyposaża gracza w latarkę z pełnym o
 
 | Źródło | Kształt światła | Pamięć powierzchni |
 |---|---|---|
-| Zapałka | Ciepła poświata dookoła, zasięg 2,7 m | Bursztynowe punkty do 7 s |
-| Latarka | Wąski stożek w kierunku patrzenia, półkąt 28,63°, energia 3,4, zasięg 15 m, radialnie wygaszone brzegi | Punktowa pamięć do 10 s |
+| Zapałka | Ciepła poświata dookoła, zasięg 5 m, łagodna zmiana jasności do ±3,5% z głównym okresem 2,8 s | Bursztynowe punkty do 7 s |
+| Latarka | Wąski stożek w kierunku patrzenia, półkąt 28,63°, energia 2,7, zasięg 20 m (korytarz ma 28 m), radialnie wygaszone brzegi | Punktowa pamięć do 10 s |
 
 ## Co pamięta gracz
 
-Punkty pojawiają się na oświetlonej powierzchni, a ich trwałość zależy od czasu ciągłej ekspozycji. Pierwsze ćwierć sekundy buduje widoczność wzoru. Przy trzech sekundach skutecznej ekspozycji w jasnym centrum osiągany jest limit czasu śladu. Granice snopa, odległość i kąt padania zmniejszają siłę zapisu. Odwrócenie źródła lub zgaszenie przerywa gromadzenie; krótki powrót nie kasuje silniejszego zapisu. Cienie blokują zapis.
+Punkty pojawiają się na oświetlonej powierzchni, a ich trwałość zależy od czasu ciągłej ekspozycji. Pierwsze ćwierć sekundy buduje widoczność wzoru. Przy trzech sekundach skutecznej ekspozycji w jasnym centrum osiągany jest limit czasu śladu. Granice snopa, odległość i kąt padania zmniejszają siłę zapisu. Odwrócenie źródła lub zgaszenie przerywa gromadzenie; krótki powrót nie kasuje silniejszego zapisu. Zapis wymaga widoczności zarówno od strony oka, jak i źródła. Maleje logarytmicznie z odległością i płynnie zanika w ostatnich 30% zasięgu. Poza zasięgiem źródła oraz poza stożkiem latarki nowa ekspozycja wynosi zero.
 
 W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbkuje zapałkę do 10 razy na sekundę, a latarkę do 30 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader dla każdego piksela miesza wygasające próbki z sąsiedztwa 4 × 4 na tej samej ścianie lub podłodze. Dzięki temu granica śladu łagodnie zanika. Drobne detale cienia są przybliżone. Po wygaśnięciu śladu przeszkody mają ginąć w ciemności. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
 
-Zapałka zostawia bursztynowe punkty, a latarka chłodne. Mają różne progi ekspozycji: kolejne zapalają się w miarę zapamiętywania fragmentu. Nowe punkty krótko się rozjaśniają. Po zgaszeniu światła wzór zostaje na bryle, rzednie i znika. To informacja o pamięci bohatera.
+Zapałka zostawia delikatną ciepłą poświatę i bursztynowe punkty, a latarka chłodne punkty. Domyślnie na metr przypada osiem pozycji wzoru wzdłuż każdej osi powierzchni. Mają różne progi ekspozycji: kolejne zapalają się w miarę zapamiętywania fragmentu. Nowe punkty krótko się rozjaśniają. Po zgaszeniu światła wzór zostaje na bryle, rzednie i znika. To informacja o pamięci bohatera.
 
 Cała trasa LightCourse ma ciągły dach, a ściany dziedzińca stykają się z jego spodem. Światło otoczenia jest wyłączone. Dziedziniec testuje zasady latarki plenerowej w kontrolowanej ciemności.
+
+## Strojenie podczas gry
+
+F4 otwiera panel z suwakami i zwalnia kursor. Ponowne F4 przywraca sterowanie myszą. Suwaki działają w bieżącej sesji. Czas palenia określa długość następnej zapałki. Zmiany zapisu najlepiej porównywać po wygaśnięciu poprzedniego śladu.
+
+Przełącznik „Nieskończone zasoby” pozwala zapalać i gasić zapałkę także przy pustym pudełku, zatrzymuje czas palenia i rozładowanie latarki, chroni zapas baterii oraz przywraca pełną kondycję do sprintu i ślizgu. Po wyłączeniu zużycie wraca.
 
 ## Próba w grze
 
