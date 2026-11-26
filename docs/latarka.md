@@ -15,7 +15,7 @@ Pierwsze przekroczenie progu dziedzińca wyposaża gracza w latarkę z pełnym o
 
 Pamięć jest przypisana do powierzchni. Odejście, obrót głowy lub zgaszenie źródła pozwala porównać ostatnio oświetlone fragmenty z ciemnym tłem. Każdy fragment wygasa od swojej ostatniej ekspozycji. Przeszkoda blokuje zapis po przeciwnej stronie. Ślad słabnie przy granicy zasięgu, a dla latarki również na brzegu snopa.
 
-W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbuje światło do 10 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader interpoluje ślad między punktami, więc drobne detale cienia są przybliżone. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
+W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbuje światło do 10 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader dla każdego piksela miesza wygasające próbki z sąsiedztwa 4 × 4 na tej samej ścianie lub podłodze. Dzięki temu granica śladu łagodnie zanika. Drobne detale cienia są przybliżone. Po wygaśnięciu śladu przeszkody mają ginąć w ciemności. Przy wyjściu pozostaje słaba wskazówka świetlna w promieniu 2,2 m. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
 
 ## Próba w grze
 

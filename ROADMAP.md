@@ -33,3 +33,4 @@
 | T26 | Ślizg do niskiej osłony | T03, T25 | Ctrl podczas rozpędzonego biegu wprowadza postać pod niski strop, a z marszu powoduje kucanie. |
 | T27 | Szkic fabularny | projekt narracji | Zarys przyjazdu, odkrycia, ucieczki i zakończeń ma osobny dokument z otwartymi decyzjami. |
 | T28 | Trasa świetlna | T01 | Ciemny korytarz, boczne wnęki i przeszkody prowadzą na dziedziniec z latarką. |
+| T29 | Ciemność i miękka granica poświaty | T08, T28 | Porównanie tego samego ujęcia w Forward+ pokazuje płynny zanik śladu na podłodze. Po wygaśnięciu przeszkody w głębi dziedzińca giną w ciemności. |

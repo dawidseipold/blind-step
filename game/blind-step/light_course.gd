@@ -11,11 +11,13 @@ var points := PackedVector3Array()
 var normals := PackedVector3Array()
 var colors := PackedColorArray()
 var coordinates := PackedVector2Array()
+var face_layout := PackedFloat32Array()
 var triangles := PackedInt32Array()
 var exposure: Image
 var exposure_texture: ImageTexture
 var material := ShaderMaterial.new()
 var elapsed := 0.0
+var trace_until := 0.0
 var until_sample := 0.0
 var previous_source := 0
 
@@ -32,10 +34,11 @@ func _ready() -> void:
 	arrays[Mesh.ARRAY_VERTEX] = points
 	arrays[Mesh.ARRAY_NORMAL] = normals
 	arrays[Mesh.ARRAY_COLOR] = colors
-	arrays[Mesh.ARRAY_TEX_UV2] = coordinates
+	arrays[Mesh.ARRAY_TEX_UV] = coordinates
+	arrays[Mesh.ARRAY_CUSTOM0] = face_layout
 	arrays[Mesh.ARRAY_INDEX] = triangles
 	var mesh := ArrayMesh.new()
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, Mesh.ARRAY_CUSTOM_RGB_FLOAT << Mesh.ARRAY_FORMAT_CUSTOM0_SHIFT)
 	exposure = Image.create_empty(ATLAS_WIDTH, ceili(float(points.size()) / ATLAS_WIDTH), false, Image.FORMAT_RGBAF)
 	exposure.fill(Color(0, 0, 0, 0))
 	exposure_texture = ImageTexture.create_from_image(exposure)
@@ -57,13 +60,17 @@ func build_face(center: Vector3, size: Vector3, normal: Vector3, object_name: St
 		tint = Color(0.23, 0.25, 0.26)
 	elif object_name.begins_with("Crate") or object_name.begins_with("Shelf"):
 		tint = Color(0.42, 0.31, 0.21)
+	var first_sample := points.size()
 	for y in range(ny + 1):
 		for x in range(nx + 1):
 			var i := points.size()
 			points.append(origin + u * width * x / nx + v * height * y / ny)
 			normals.append(normal)
 			colors.append(tint)
-			coordinates.append(Vector2(i % ATLAS_WIDTH, floori(float(i) / ATLAS_WIDTH)))
+			coordinates.append(Vector2(x, y))
+			face_layout.append(first_sample)
+			face_layout.append(nx + 1)
+			face_layout.append(ny + 1)
 			if x < nx and y < ny:
 				triangles.append_array(PackedInt32Array([i, i+1, i+nx+1, i+1, i+nx+2, i+nx+1]))
 
@@ -115,3 +122,5 @@ func record_light(torch: bool) -> void:
 			stamp.b = strength
 		exposure.set_pixel(x, y, stamp)
 	exposure_texture.update(exposure)
+	trace_until = maxf(trace_until, elapsed + (3.5 if torch else 1.8))
+	material.set_shader_parameter("trace_until", trace_until)
