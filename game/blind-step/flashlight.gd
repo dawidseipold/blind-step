@@ -10,10 +10,14 @@ extends SpotLight3D
 var unlimited := false
 var flicker_amplitude := 0.035
 var flicker_period := 2.8
+var flame_tail := 10.0:
+	set(value):
+		flame_tail = value
+		flame.omni_range = flame_radius + flame_tail
 var flame_radius := 2.5:
 	set(value):
 		flame_radius = value
-		flame.omni_range = value * 5.0
+		flame.omni_range = value + flame_tail
 var flame_power := 1.0
 var flame_time := 0.0
 var burn_left := 0.0

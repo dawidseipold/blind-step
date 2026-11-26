@@ -12,10 +12,22 @@ var body_fov := 92.0:
 		body_fov = value
 		if overlay.visible:
 			course.camera.fov = value
+var darkness := 100.0:
+	set(value):
+		darkness = value
+		var env: Environment = course.get_node("Environment").environment
+		env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+		env.ambient_light_energy = (100.0 - value) / 100.0
 var normal_fov := 75.0
 
 func initialize() -> void:
 	normal_fov = course.camera.fov
+	var env: Environment = course.get_node("Environment").environment
+	if env.ambient_light_source == Environment.AMBIENT_SOURCE_COLOR:
+		darkness = 100.0 * (1.0 - env.ambient_light_energy)
+	else:
+		env.ambient_light_color = Color(0.55, 0.58, 0.64)
+		darkness = 100.0
 	var layer := CanvasLayer.new()
 	layer.layer = 0
 	course.add_child(layer)
@@ -25,6 +37,7 @@ func initialize() -> void:
 	retro.shader = preload("res://addons/psx_shader/shaders/psx_screen.gdshader")
 	retro.set_shader_parameter("screen_amount", 0.42)
 	retro.set_shader_parameter("screen_pixel_size", 2.0)
+	retro.set_shader_parameter("screen_dither", 1.0)
 	psx.material = retro
 	var copy := BackBufferCopy.new()
 	copy.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT
@@ -36,7 +49,15 @@ func initialize() -> void:
 	optics.set_shader_parameter("distortion", 0.22)
 	optics.set_shader_parameter("vignette", 0.32)
 	optics.set_shader_parameter("noise_amount", 0.12)
+	optics.set_shader_parameter("frame_size", 1.0)
+	optics.set_shader_parameter("frame_feather", 0.04)
+	optics.set_shader_parameter("edge_blur", 0.0)
+	optics.set_shader_parameter("blur_start", 0.60)
+	optics.set_shader_parameter("aberration", 1.5)
+	optics.set_shader_parameter("grain_rate", 20.0)
 	overlay.material = optics
+	course.material.set_shader_parameter("match_dots", Color(0.45, 0.23, 0.095).linear_to_srgb())
+	course.material.set_shader_parameter("torch_dots", Color(0.42, 0.68, 0.74).linear_to_srgb())
 	build_panel()
 
 	course.material.set_shader_parameter("full_exposure", course.full_exposure)
@@ -92,9 +113,15 @@ func build_panel() -> void:
 		settings["source"] = index
 		course.lamp.select_torch(index == 1)
 	)
+	section("Otoczenie")
+	slider("Ciemność otoczenia (%)", self, "darkness", 0, 100, 1)
 	section("Zapałka")
 	var lamp = course.lamp
 	slider("Promień jasny (m)", lamp, "flame_radius", 0.5, 5, 0.1)
+	color_picker("Kolor płomienia", lamp.flame, "light_color", "match_color")
+	color_picker("Kolor kropek zapałki", course.material, "shader_parameter/match_dots", "match_dots")
+	slider("Zanik poza rdzeniem (m)", lamp, "flame_tail", 0.5, 24, 0.5)
+	slider("Tłumienie zapałki", lamp.flame, "omni_attenuation", 0.3, 3, 0.05)
 	slider("Moc płomienia", lamp, "flame_power", 0.1, 2, 0.05)
 	slider("Wahanie jasności", lamp, "flicker_amplitude", 0, 0.15, 0.005)
 	slider("Okres wahania (s)", lamp, "flicker_period", 1, 8, 0.1)
@@ -102,6 +129,10 @@ func build_panel() -> void:
 	slider("Ślad zapałki (s)", course, "match_trace_seconds", 1, 20, 0.5)
 	section("Latarka")
 	slider("Latarka · zasięg (m)", lamp, "spot_range", 2, 28, 0.5)
+	color_picker("Kolor snopa", lamp, "light_color", "torch_color")
+	color_picker("Kolor kropek latarki", course.material, "shader_parameter/torch_dots", "torch_dots")
+	slider("Tłumienie snopa", lamp, "spot_attenuation", 0.3, 3, 0.05)
+	slider("Strefa zaniku śladu", course, "torch_fade_fraction", 0.05, 0.95, 0.05)
 	slider("Moc latarki", lamp, "beam_energy", 0.1, 5, 0.1)
 	slider("Półkąt wiązki (°)", lamp, "spot_angle", 8, 50, 0.1)
 	slider("Wygaszenie brzegu", lamp, "spot_angle_attenuation", 0.1, 3, 0.05)
@@ -119,10 +150,36 @@ func build_panel() -> void:
 	body.toggled.connect(set_bodycam)
 	slider("Pole widzenia (°)", self, "body_fov", 65, 115, 1)
 	slider("Dystorsja", optics, "shader_parameter/distortion", 0, 0.65, 0.01)
-	slider("Siła efektu PSX", retro, "shader_parameter/screen_amount", 0, 1, 0.01)
-	slider("Rozmiar piksela PSX", retro, "shader_parameter/screen_pixel_size", 1, 5, 0.5)
+	slider("Rozmiar ramki", optics, "shader_parameter/frame_size", 0.72, 1, 0.01)
+	slider("Miękkość ramki", optics, "shader_parameter/frame_feather", 0.005, 0.20, 0.005)
+	slider("Rozmycie brzegu (px)", optics, "shader_parameter/edge_blur", 0, 16, 0.5)
+	slider("Początek rozmycia", optics, "shader_parameter/blur_start", 0.15, 0.95, 0.01)
+	slider("Aberracja (px)", optics, "shader_parameter/aberration", 0, 6, 0.1)
+	slider("Tempo ziarna (Hz)", optics, "shader_parameter/grain_rate", 1, 60, 1)
 	slider("Winieta", optics, "shader_parameter/vignette", 0, 0.9, 0.01)
 	slider("Szum w cieniu", optics, "shader_parameter/noise_amount", 0, 1, 0.01)
+	section("PSX")
+	slider("Siła efektu PSX", retro, "shader_parameter/screen_amount", 0, 1, 0.01)
+	slider("Rozmiar piksela PSX", retro, "shader_parameter/screen_pixel_size", 1, 5, 0.5)
+	slider("Siła ditheringu", retro, "shader_parameter/screen_dither", 0, 1, 0.05)
+
+func color_picker(title: String, target: Object, property: String, key: String) -> void:
+	var row := HBoxContainer.new()
+	rows.add_child(row)
+	var label := Label.new()
+	label.text = title
+	label.custom_minimum_size.x = 216
+	row.add_child(label)
+	var picker := ColorPickerButton.new()
+	picker.custom_minimum_size.x = 140
+	picker.edit_alpha = false
+	picker.color = settings.get(key, target.get(property))
+	target.set(property, picker.color)
+	row.add_child(picker)
+	picker.color_changed.connect(func(value: Color):
+		settings[key] = value
+		target.set(property, value)
+	)
 
 func slider(title: String, target: Object, property: String, low: float, high: float, step_size: float) -> void:
 	var row := HBoxContainer.new()

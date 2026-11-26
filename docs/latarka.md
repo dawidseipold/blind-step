@@ -35,8 +35,16 @@ Korytarz i jego dziedziniec mają ciągły dach oraz ciemne otoczenie do próby 
 
 ## Profil obrazu i przegląd Claude (T39)
 
-Zapałka używa jednego OmniLight3D. Suwak jasnego promienia ustala skalę zaniku i moc źródła. Zewnętrzna granica renderowania leży pięć razy dalej. Pamięć śledzi widoczne powierzchnie w tej samej strefie. Promienie fizyki służą wyłącznie sprawdzeniu zasłonięcia śladu.
+Zapałka używa jednego OmniLight3D. Suwak jasnego promienia ustala skalę zaniku i moc źródła. Zewnętrzna granica renderowania to jasny promień plus regulowana odległość zaniku (domyślnie 2,5 + 10 m). Pamięć śledzi widoczne powierzchnie w tej samej strefie. Promienie fizyki służą wyłącznie sprawdzeniu zasłonięcia śladu.
 
 Filtr ekranowy Francisco Cidade działa przed optyką i diagnostyką. W F4 siła PSX startuje od 0,42 i rozmiar piksela od 2. Drugi przebieg nakłada radialną projekcję obiektywu, niewielkie rozdzielenie kanałów, ziarno i miękkie obramowanie. Wyłącznik bodycam pozwala wrócić do zwykłego obrazu 3D. Zachowujemy materiały powierzchni z cieniami i pamięcią ekspozycji. Oba źródła kodu są dostępne na CC0. [Bodycam footage, cyanone](https://godotshaders.com/shader/bodycam/) · [PSX – Godot Shader, Francisco Cidade](https://store.godotengine.org/asset/fcidade/psx-godot-shader/)
 
 Do przeglądu Claude oznaczamy PR i powiązane zadania etykietą review:claude. Na korytarzu porównać płonącą i zgaszoną zapałkę przy zbiegu ściany i podłogi, także przy promieniu 2,5 m. W rezydencji sprawdzić miękkie przejścia poza wyspami światła, ciemne wnęki, ruch po schodach i stabilność podziałów okien przy obrocie z włączoną kamerą.
+
+## Strojenie podczas playtestu (T40)
+
+W F4 każda sekcja narzędzia ma dwa próbniki kolorów. Pierwszy zmienia światło bezpośrednie, drugi kropki na zapamiętanych powierzchniach, również po zgaszeniu narzędzia. Zapałka ma osobno regulowaną długość zaniku poza jasnym rdzeniem (0,5–24 m) oraz tłumienie światła. Latarka ma tłumienie i udział końcowej strefy zaniku śladu w całym zasięgu (0,05–0,95; startowo 0,25).
+
+Ciemność otoczenia reguluje wypełnienie cieni na obu mapach. 100% wyłącza wypełnienie, 0% daje maksymalne. Początkowe wartości to 100% w korytarzu i 85% w rezydencji. Ręczna zmiana przechodzi na kolejną mapę do końca sesji.
+
+W optyce rozmiar i miękkość ramki regulują maskę obiektywu. Rozmycie brzegu (0–16 px) i początek rozmycia (ułamek promienia obrazu) zmieniają ostrość sceny na obrzeżach. Osobno można dostroić aberrację, tempo ziarna i dithering PSX. Próba: ustawić różne barwy źródła i śladu, zgasić światło, zmienić kolor pozostałych kropek, a potem porównać ustawienia przy oknie rezydencji.

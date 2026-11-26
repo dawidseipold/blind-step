@@ -6,6 +6,7 @@ const ATLAS_WIDTH := 128
 const SPACING := 0.45
 const SAMPLE_INTERVAL := 0.1
 const TORCH_SAMPLE_INTERVAL := 1.0 / 30.0
+var torch_fade_fraction := 0.25
 var full_exposure := 2.5
 var match_trace_seconds := 8.0
 var torch_trace_seconds := 30.0
@@ -157,7 +158,7 @@ func record_light(torch: bool, interval: float) -> void:
 		if torch:
 			# Equal dwell earns equal time across the beam core, including grazing floors.
 			var rim := smoothstep(cutoff, lerpf(cutoff, 1.0, 0.18), angular)
-			strength = rim * (1.0 - smoothstep(reach * 0.75, reach, distance))
+			strength = rim * (1.0 - smoothstep(reach * (1.0 - torch_fade_fraction), reach, distance))
 		else:
 			strength = 1.0 / (1.0 + log(1.0 + offset.length_squared() / (falloff_scale * falloff_scale)))
 			strength *= 1.0 - smoothstep(reach * 0.7, reach, distance)

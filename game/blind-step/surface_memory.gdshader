@@ -7,6 +7,8 @@ uniform float full_exposure = 2.5;
 uniform float dots_per_metre = 10.0;
 uniform vec2 trace_limits;
 varying flat ivec3 face_grid;
+uniform vec4 match_dots : source_color = vec4(0.70141, 0.51688, 0.34070, 1.0);
+uniform vec4 torch_dots : source_color = vec4(0.67998, 0.84339, 0.87561, 1.0);
 uniform bool manor = false;
 varying vec3 local_position;
 varying vec2 surface_position;
@@ -83,7 +85,7 @@ void fragment() {
 	float threshold = 0.015 + 0.38 * grain;
 	vec2 returns = smoothstep(vec2(threshold), vec2(threshold + 0.12), trace) * trace;
 	vec3 torch_color = vec3(0.42, 0.68, 0.74);
-	vec3 dots = dot_mask * (torch_color * returns.y + vec3(0.45, 0.23, 0.095) * returns.x);
+	vec3 dots = dot_mask * (torch_dots.rgb * returns.y + match_dots.rgb * returns.x);
 	vec3 remembered_match = COLOR.rgb * vec3(0.29, 0.16, 0.075) * trace.x;
 	EMISSION = remembered_match + dots + COLOR.rgb * torch_color * trace.y * 0.045;
 }
