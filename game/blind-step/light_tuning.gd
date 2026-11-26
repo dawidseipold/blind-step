@@ -56,12 +56,8 @@ func initialize() -> void:
 	optics.set_shader_parameter("aberration", 1.5)
 	optics.set_shader_parameter("grain_rate", 20.0)
 	overlay.material = optics
-	course.material.set_shader_parameter("match_dots", Color(0.45, 0.23, 0.095).linear_to_srgb())
-	course.material.set_shader_parameter("torch_dots", Color(0.42, 0.68, 0.74).linear_to_srgb())
 	build_panel()
 
-	course.material.set_shader_parameter("full_exposure", course.full_exposure)
-	course.material.set_shader_parameter("trace_limits", Vector2(course.match_trace_seconds, course.torch_trace_seconds))
 
 func section(title: String) -> void:
 	rows.add_child(HSeparator.new())
@@ -79,13 +75,14 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_F4 and event.pressed and not event.echo:
 		visible = not visible
 		course.player.set_process_unhandled_input(not visible)
+		course.lamp.set_process_unhandled_input(not visible)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if visible else Input.MOUSE_MODE_CAPTURED
 		get_viewport().set_input_as_handled()
 
 func build_panel() -> void:
 	section("Testy")
 	set_anchors_and_offsets_preset(Control.PRESET_RIGHT_WIDE)
-	offset_left = -395
+	offset_left = -440
 	var scroll := ScrollContainer.new()
 	add_child(scroll)
 	scroll.add_child(rows)
@@ -103,44 +100,17 @@ func build_panel() -> void:
 	map.item_selected.connect(func(index: int):
 		get_tree().change_scene_to_file("res://bench.tscn" if index == 1 else "res://light_course.tscn")
 	)
-	var source := OptionButton.new()
-	source.add_item("Źródło · Zapałka")
-	source.add_item("Źródło · Latarka")
-	rows.add_child(source)
-	source.select(settings.get("source", 0))
-	course.lamp.select_torch(source.selected == 1)
-	source.item_selected.connect(func(index: int):
-		settings["source"] = index
-		course.lamp.select_torch(index == 1)
-	)
 	section("Otoczenie")
-	slider("Ciemność otoczenia (%)", self, "darkness", 0, 100, 1)
+	slider("Ciemność otoczenia (%)", self, "darkness", 0, 100, 0.1)
 	section("Zapałka")
 	var lamp = course.lamp
 	slider("Promień jasny (m)", lamp, "flame_radius", 0.5, 5, 0.1)
-	color_picker("Kolor płomienia", lamp.flame, "light_color", "match_color")
-	color_picker("Kolor kropek zapałki", course.material, "shader_parameter/match_dots", "match_dots")
+	color_picker("Kolor płomienia", lamp, "light_color", "match_color")
 	slider("Zanik poza rdzeniem (m)", lamp, "flame_tail", 0.5, 24, 0.5)
-	slider("Tłumienie zapałki", lamp.flame, "omni_attenuation", 0.3, 3, 0.05)
 	slider("Moc płomienia", lamp, "flame_power", 0.1, 2, 0.05)
 	slider("Wahanie jasności", lamp, "flicker_amplitude", 0, 0.15, 0.005)
 	slider("Okres wahania (s)", lamp, "flicker_period", 1, 8, 0.1)
 	slider("Czas palenia (s)", lamp, "burn_seconds", 1, 30, 0.5)
-	slider("Ślad zapałki (s)", course, "match_trace_seconds", 1, 20, 0.5)
-	section("Latarka")
-	slider("Latarka · zasięg (m)", lamp, "spot_range", 2, 28, 0.5)
-	color_picker("Kolor snopa", lamp, "light_color", "torch_color")
-	color_picker("Kolor kropek latarki", course.material, "shader_parameter/torch_dots", "torch_dots")
-	slider("Tłumienie snopa", lamp, "spot_attenuation", 0.3, 3, 0.05)
-	slider("Strefa zaniku śladu", course, "torch_fade_fraction", 0.05, 0.95, 0.05)
-	slider("Moc latarki", lamp, "beam_energy", 0.1, 5, 0.1)
-	slider("Półkąt wiązki (°)", lamp, "spot_angle", 8, 50, 0.1)
-	slider("Wygaszenie brzegu", lamp, "spot_angle_attenuation", 0.1, 3, 0.05)
-	slider("Ślad latarki (s)", course, "torch_trace_seconds", 1, 30, 0.5)
-	section("Pamięć powierzchni")
-	slider("Czas pełnej ekspozycji (s)", course, "full_exposure", 0.25, 6, 0.25)
-	slider("Punkty na metr", course, "dots_per_metre", 3, 14, 0.5)
-
 	section("Optyka bodycam")
 	var body := CheckButton.new()
 	body.text = "Włącz bodycam"
@@ -188,22 +158,22 @@ func slider(title: String, target: Object, property: String, low: float, high: f
 	label.custom_minimum_size.x = 216
 	row.add_child(label)
 	var bar := HSlider.new()
-	bar.custom_minimum_size.x = 140
+	bar.custom_minimum_size.x = 100
 	bar.min_value = low
 	bar.max_value = high
-	bar.step = step_size
+	bar.step = minf(step_size, 0.001)
 	bar.value = settings.get(property, target.get(property))
 	target.set(property, bar.value)
 	row.add_child(bar)
-	label.text = "%s  %s" % [title, bar.value]
+	label.text = title
+	var number := SpinBox.new()
+	number.custom_minimum_size.x = 84
+	number.custom_arrow_step = step_size
+	row.add_child(number)
+	bar.share(number)
 	bar.value_changed.connect(func(value: float):
 		settings[property] = value
 		target.set(property, value)
-		label.text = "%s  %s" % [title, value]
-		if property == "beam_energy" and course.lamp.light_energy > 0.0:
-			course.lamp.light_energy = value
-		course.material.set_shader_parameter("full_exposure", course.full_exposure)
-		course.material.set_shader_parameter("trace_limits", Vector2(course.match_trace_seconds, course.torch_trace_seconds))
 	)
 
 func set_unlimited(enabled: bool) -> void:

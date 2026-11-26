@@ -4,7 +4,7 @@ Bodycam FPP o estetyce PSX. Scena Bench to laboratorium w skali metrów. Neutral
 
 ## Światło i ciemność
 
-W domu osobny płomień kosztuje jedną zapałkę. Po wyjściu snop latarki zużywa wymienną baterię proporcjonalnie do czasu świecenia. Oświetlone fragmenty terenu na krótko zostają widoczne. Zasięgi, czasy i próby odbioru opisuje [mechanika światła](docs/latarka.md). Reakcje istot, dźwięki i optyka kamery mają osobne zadania.
+Zapałka pozwala odnaleźć drogę w ciemności, ale rozjaśnia sylwetkę. Gracz może poczekać w cieniu, przejść za przeszkodą lub szybko przeciąć jasną część pomieszczenia. [Zasady zapałek i widoczności](docs/latarka.md).
 
 ## Audio i wygląd
 

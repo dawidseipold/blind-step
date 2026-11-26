@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://sight_probe.gd" id="Sight"]
 [ext_resource type="Script" path="res://light_course.gd" id="Course"]
 [ext_resource type="PackedScene" path="res://player.tscn" id="Player"]
 [ext_resource type="Script" path="res://bench_readout.gd" id="Readout"]
@@ -215,6 +216,10 @@ shape = SubResource("FenceEntranceR")
 position = Vector3(0, 0.05, 5)
 
 [node name="Player" parent="PlayerSpawn" instance=ExtResource("Player")]
+
+[node name="Observer" type="Marker3D" parent="."]
+position = Vector3(0, 1.65, -4.1)
+script = ExtResource("Sight")
 
 [node name="Diagnostics" type="CanvasLayer" parent="."]
 

@@ -45,3 +45,7 @@
 | T38 | Sala pałacu i przełączanie map | T36 | Z F4 można przejść między korytarzem i zamkniętą salą z trzema oknami w obie strony. |
 | T39 | Światło zapałki i ciepły hol PSX | T07, T37, T38 | Zapałka ma łagodny ogon poza jasną strefą. W F4 można porównać bodycam i PSX. Hol oraz oświetlenie podlegają ocenie Claude. |
 | T40 | Strojenie oświetlenia, cząsteczek i obiektywu w F4 | T39 | Osobne kolory obu świateł i kropek, ciemność otoczenia i miękkość ramki dają się zmieniać podczas gry. |
+| T41 | Zwykłe zapałki i dokładne pola F4 | T40 | Po zgaszeniu znika światło, można wpisać ciemność 99.8. Latarka i pamięć terenu są zarchiwizowane. |
+| T42 | Kalibracja zaniku | T41 | Porównano ten sam narożnik przy trzech długościach zaniku. |
+| T43 | Przejście korytarza z pięcioma zapałkami | T42 | Udokumentowano zużycie i miejsca utraty orientacji. |
+| T44 | Ukrycie w cieniu | T41 | Cień, odsłonięty gracz z zapałką i pełna osłona dają trzy różne stany. |

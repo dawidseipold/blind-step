@@ -1,20 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://player.gd" id="1"]
-[ext_resource type="Script" path="res://flashlight.gd" id="Flashlight"]
-
-[sub_resource type="Gradient" id="BeamFalloff"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.45, 0.78, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.95, 0.95, 0.95, 1, 0.38, 0.38, 0.38, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="SoftBeam"]
-gradient = SubResource("BeamFalloff")
-width = 256
-height = 256
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
+[ext_resource type="Script" path="res://match_light.gd" id="Match"]
 
 [sub_resource type="CapsuleShape3D" id="Capsule"]
 resource_local_to_scene = true
@@ -32,21 +19,12 @@ shape = SubResource("Capsule")
 position = Vector3(0, 1.6, 0)
 current = true
 
-[node name="Flashlight" type="SpotLight3D" parent="Camera3D"]
-position = Vector3(0.12, -0.12, 0)
-light_energy = 2.5
-light_projector = SubResource("SoftBeam")
-spot_range = 15.0
-spot_angle = 28.6
-spot_angle_attenuation = 0.5
-shadow_enabled = true
-script = ExtResource("Flashlight")
-
-[node name="Match" type="OmniLight3D" parent="Camera3D/Flashlight"]
+[node name="Match" type="OmniLight3D" parent="Camera3D"]
 light_color = Color(1, 0.57, 0.24, 1)
 light_energy = 1.0
-position = Vector3(0.15, -0.15, -0.22)
-omni_range = 12.5
-omni_attenuation = 1.35
+position = Vector3(0.27, -0.27, -0.22)
+omni_range = 32.5
+omni_attenuation = 2.0
 light_size = 0.06
 shadow_enabled = true
+script = ExtResource("Match")
