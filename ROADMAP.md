@@ -43,3 +43,4 @@
 | T36 | Strojenie światła i zasobów | T35 | F4 zmienia parametry podczas gry. Tryb nieskończony obejmuje światło i kondycję. |
 | T37 | Profil playtestu i równa trwałość śladu latarki | T35, T36 | W rdzeniu wiązki podłoga i ściana zachowują ten sam czas śladu do 75% zasięgu. F4 przełącza źródło. |
 | T38 | Sala pałacu i przełączanie map | T36 | Z F4 można przejść między korytarzem i zamkniętą salą z trzema oknami w obie strony. |
+| T39 | Światło zapałki i ciepły hol PSX | T07, T37, T38 | Zapałka ma łagodny ogon poza jasną strefą. W F4 można porównać bodycam i PSX. Hol oraz oświetlenie podlegają ocenie Claude. |

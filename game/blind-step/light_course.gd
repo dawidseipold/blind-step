@@ -36,6 +36,8 @@ var dwell := PackedFloat32Array()
 
 func _ready() -> void:
 	# Authored box colliders also define the surfaces used by the light-memory pass.
+	if has_node("Manor"):
+		$Manor.build($Geometry)
 	for child in $Geometry.get_children():
 		var collider := child as CollisionShape3D
 		var size := (collider.shape as BoxShape3D).size
@@ -59,6 +61,7 @@ func _ready() -> void:
 	exposure_texture = ImageTexture.create_from_image(exposure)
 	material.shader = preload("res://surface_memory.gdshader")
 	material.set_shader_parameter("exposure_map", exposure_texture)
+	material.set_shader_parameter("manor", has_node("Manor"))
 	material.set_shader_parameter("trace_limits", Vector2(match_trace_seconds, torch_trace_seconds))
 	$Surfaces.mesh = mesh
 	$Surfaces.material_override = material
@@ -113,12 +116,12 @@ func _physics_process(delta: float) -> void:
 	previous_source = source
 
 func record_light(torch: bool, interval: float) -> void:
-	var light_position := lamp.global_position
+	var light_position := lamp.global_position if torch else lamp.flame.global_position
 	var forward := -lamp.global_basis.z
 	var reach := lamp.spot_range if torch else lamp.flame.omni_range
 	var planes := camera.get_frustum()
 	var eye := camera.global_position
-	var falloff_scale := reach * 0.5
+	var falloff_scale := lamp.flame_radius
 	var cutoff := cos(deg_to_rad(lamp.spot_angle))
 	var space := get_world_3d().direct_space_state
 	var query := PhysicsRayQueryParameters3D.new()

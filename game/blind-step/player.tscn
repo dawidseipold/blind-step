@@ -45,5 +45,8 @@ script = ExtResource("Flashlight")
 [node name="Match" type="OmniLight3D" parent="Camera3D/Flashlight"]
 light_color = Color(1, 0.57, 0.24, 1)
 light_energy = 1.0
-omni_range = 5.0
+position = Vector3(0.15, -0.15, -0.22)
+omni_range = 12.5
+omni_attenuation = 1.35
+light_size = 0.06
 shadow_enabled = true

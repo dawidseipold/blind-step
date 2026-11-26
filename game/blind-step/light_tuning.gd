@@ -4,6 +4,8 @@ extends PanelContainer
 var rows := VBoxContainer.new()
 static var settings := {}
 var overlay := ColorRect.new()
+var psx := ColorRect.new()
+var retro := ShaderMaterial.new()
 var optics := ShaderMaterial.new()
 var body_fov := 92.0:
 	set(value):
@@ -17,6 +19,16 @@ func initialize() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 0
 	course.add_child(layer)
+	layer.add_child(psx)
+	psx.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	psx.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	retro.shader = preload("res://addons/psx_shader/shaders/psx_screen.gdshader")
+	retro.set_shader_parameter("screen_amount", 0.42)
+	retro.set_shader_parameter("screen_pixel_size", 2.0)
+	psx.material = retro
+	var copy := BackBufferCopy.new()
+	copy.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT
+	layer.add_child(copy)
 	layer.add_child(overlay)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -39,6 +51,7 @@ func section(title: String) -> void:
 func set_bodycam(enabled: bool) -> void:
 	settings["bodycam"] = enabled
 	overlay.visible = enabled
+	psx.visible = enabled
 	course.camera.fov = body_fov if enabled else normal_fov
 
 func _input(event: InputEvent) -> void:
@@ -81,7 +94,7 @@ func build_panel() -> void:
 	)
 	section("Zapałka")
 	var lamp = course.lamp
-	slider("Zapałka · zasięg (m)", lamp.flame, "omni_range", 0.5, 5, 0.1)
+	slider("Promień jasny (m)", lamp, "flame_radius", 0.5, 5, 0.1)
 	slider("Moc płomienia", lamp, "flame_power", 0.1, 2, 0.05)
 	slider("Wahanie jasności", lamp, "flicker_amplitude", 0, 0.15, 0.005)
 	slider("Okres wahania (s)", lamp, "flicker_period", 1, 8, 0.1)
@@ -106,6 +119,8 @@ func build_panel() -> void:
 	body.toggled.connect(set_bodycam)
 	slider("Pole widzenia (°)", self, "body_fov", 65, 115, 1)
 	slider("Dystorsja", optics, "shader_parameter/distortion", 0, 0.65, 0.01)
+	slider("Siła efektu PSX", retro, "shader_parameter/screen_amount", 0, 1, 0.01)
+	slider("Rozmiar piksela PSX", retro, "shader_parameter/screen_pixel_size", 1, 5, 0.5)
 	slider("Winieta", optics, "shader_parameter/vignette", 0, 0.9, 0.01)
 	slider("Szum w cieniu", optics, "shader_parameter/noise_amount", 0, 1, 0.01)
 

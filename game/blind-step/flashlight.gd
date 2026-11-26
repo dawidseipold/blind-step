@@ -10,6 +10,10 @@ extends SpotLight3D
 var unlimited := false
 var flicker_amplitude := 0.035
 var flicker_period := 2.8
+var flame_radius := 2.5:
+	set(value):
+		flame_radius = value
+		flame.omni_range = value * 5.0
 var flame_power := 1.0
 var flame_time := 0.0
 var burn_left := 0.0
@@ -47,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	if burn_left > 0.0:
 		flame_time += delta
 		var phase := TAU * flame_time / flicker_period
-		flame.light_energy = flame_power * (1.0 + flicker_amplitude * (0.8 * sin(phase) + 0.2 * sin(phase * 0.63)))
+		flame.light_energy = flame_power * pow(flame_radius / 2.5, 1.5) * (1.0 + flicker_amplitude * (0.8 * sin(phase) + 0.2 * sin(phase * 0.63)))
 		if not unlimited:
 			burn_left = maxf(0.0, burn_left - delta)
 		flame.visible = burn_left > 0.0

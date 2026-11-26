@@ -4,30 +4,33 @@
 [ext_resource type="PackedScene" path="res://player.tscn" id="Player"]
 [ext_resource type="Script" path="res://bench_readout.gd" id="Readout"]
 
+[ext_resource type="Script" path="res://manor.gd" id="Manor"]
 [ext_resource type="Script" path="res://light_tuning.gd" id="Tuning"]
 
 [sub_resource type="Environment" id="Night"]
 background_mode = 1
 background_color = Color(0.003, 0.004, 0.005, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.26, 0.30, 0.34, 1)
-ambient_light_energy = 0.12
+ambient_light_color = Color(0.45, 0.32, 0.22, 1)
+ambient_light_energy = 0.15
+glow_enabled = true
+glow_intensity = 0.6
 reflected_light_source = 1
 
 [sub_resource type="BoxShape3D" id="Floor"]
 size = Vector3(14, 0.4, 20)
 
 [sub_resource type="BoxShape3D" id="Back"]
-size = Vector3(14, 3, 0.3)
+size = Vector3(14, 6, 0.3)
 
 [sub_resource type="BoxShape3D" id="Left"]
-size = Vector3(0.3, 3, 20)
+size = Vector3(0.3, 6, 20)
 
 [sub_resource type="BoxShape3D" id="RightRim"]
-size = Vector3(0.3, 3, 20)
+size = Vector3(0.3, 6, 20)
 
 [sub_resource type="BoxShape3D" id="FrontRim"]
-size = Vector3(14, 3, 0.3)
+size = Vector3(14, 6, 0.3)
 
 [sub_resource type="BoxShape3D" id="LowCeiling"]
 size = Vector3(3, 0.3, 4)
@@ -42,7 +45,7 @@ size = Vector3(4, 3, 0.4)
 size = Vector3(0.4, 3, 5)
 
 [sub_resource type="BoxShape3D" id="Target"]
-size = Vector3(0.7, 1.5, 0.5)
+size = Vector3(0.7, 3, 0.5)
 
 [sub_resource type="BoxShape3D" id="Roof"]
 size = Vector3(14.3, 0.3, 20.3)
@@ -50,8 +53,8 @@ size = Vector3(14.3, 0.3, 20.3)
 [sub_resource type="StandardMaterial3D" id="Glass"]
 albedo_color = Color(0.64, 0.72, 0.75, 1)
 emission_enabled = true
-emission = Color(0.62, 0.76, 0.84, 1)
-emission_energy_multiplier = 1.6
+emission = Color(0.74, 0.56, 0.35, 1)
+emission_energy_multiplier = 0.8
 
 [sub_resource type="BoxMesh" id="Window"]
 material = SubResource("Glass")
@@ -71,6 +74,9 @@ size = Vector3(0.07, 0.055, 1.44)
 [node name="Bench" type="Node3D"]
 script = ExtResource("Course")
 
+[node name="Manor" type="Node3D" parent="."]
+script = ExtResource("Manor")
+
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Night")
 
@@ -81,19 +87,19 @@ position = Vector3(0, -0.2, 0)
 shape = SubResource("Floor")
 
 [node name="Back" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(0, 1.5, -10)
+position = Vector3(0, 3, -10)
 shape = SubResource("Back")
 
 [node name="Left" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(-7, 1.5, 0)
+position = Vector3(-7, 3, 0)
 shape = SubResource("Left")
 
 [node name="RightRim" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(7, 1.5, 0)
+position = Vector3(7, 3, 0)
 shape = SubResource("RightRim")
 
 [node name="FrontRim" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(0, 1.5, 10)
+position = Vector3(0, 3, 10)
 shape = SubResource("FrontRim")
 
 [node name="LowCeiling" type="CollisionShape3D" parent="Geometry"]
@@ -117,7 +123,7 @@ position = Vector3(1, 0.75, -8.5)
 shape = SubResource("Target")
 
 [node name="Roof" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(0, 3.15, 0)
+position = Vector3(0, 6.15, 0)
 shape = SubResource("Roof")
 
 [node name="WestWindow" type="MeshInstance3D" parent="."]
@@ -134,8 +140,8 @@ mesh = SubResource("Crossbar")
 [node name="WestDaylight" type="SpotLight3D" parent="."]
 position = Vector3(-6.741899999999999, 2.05, 3)
 rotation_degrees = Vector3(-13, -84, 0)
-light_color = Color(0.83, 0.90, 1, 1)
-light_energy = 4.0
+light_color = Color(1, 0.80, 0.58, 1)
+light_energy = 1.1
 light_size = 0.35
 spot_range = 12
 spot_angle = 60
@@ -155,8 +161,8 @@ mesh = SubResource("Crossbar")
 [node name="EastDaylight" type="SpotLight3D" parent="."]
 position = Vector3(6.741899999999999, 2.05, -2)
 rotation_degrees = Vector3(-13, 85, 0)
-light_color = Color(0.83, 0.90, 1, 1)
-light_energy = 4.0
+light_color = Color(1, 0.80, 0.58, 1)
+light_energy = 1.1
 light_size = 0.35
 spot_range = 12
 spot_angle = 60
@@ -176,8 +182,8 @@ mesh = SubResource("Crossbar")
 [node name="GalleryDaylight" type="SpotLight3D" parent="."]
 position = Vector3(-6.741899999999999, 2.05, -7)
 rotation_degrees = Vector3(-13, -82, 0)
-light_color = Color(0.83, 0.90, 1, 1)
-light_energy = 4.0
+light_color = Color(1, 0.80, 0.58, 1)
+light_energy = 1.1
 light_size = 0.35
 spot_range = 12
 spot_angle = 60

@@ -4,7 +4,7 @@ F5 uruchamia ciemny korytarz. F4 otwiera panel i zwalnia kursor. Kolejne F4 wrac
 
 | Parametr startowy | Zapałka | Latarka |
 |---|---|---|
-| Zasięg | 5 m dookoła | 15 m do przodu |
+| Zasięg | Promień jasnej strefy 2,5 m, światło stopniowo gaśnie do 12,5 m dookoła | 15 m do przodu |
 | Moc | 1,0 | 2,5 |
 | Kształt światła | Wahanie 0,035, główny okres 2,8 s | Półkąt 28,6°, wygaszenie brzegu 0,5 |
 | Maksymalny ślad po zgaszeniu | 8 s, bursztynowy | 30 s, chłodny |
@@ -25,10 +25,18 @@ W rdzeniu snopa latarki taka sama ekspozycja daje podłodze, ścianie i przeszko
 
 Optyka jest domyślnie włączona. W sekcji Bodycam można ustawić pionowe pole widzenia (startowo 92°), dystorsję (0,22), winietę (0,32) i szum cieni (0,12). Wyłączenie przywraca zwykłą kamerę i jej pierwotne pole widzenia. Filtr działa przed interfejsem.
 
-Korytarz i jego dziedziniec mają ciągły dach oraz ciemne otoczenie do próby poświaty. Sala pałacu zachowuje niski strop do ślizgu, przegrodę, wnękę i cel ze stanowiska Bench. Salę zamykają cztery ściany oraz dach. Trzy okna z bocznymi źródłami symulują światło dzienne.
+Korytarz i jego dziedziniec mają ciągły dach oraz ciemne otoczenie do próby poświaty. Sala pałacu zachowuje niski strop do ślizgu, przegrodę, wnękę i cel ze stanowiska Bench. Salę zamykają cztery ściany oraz dach. Trzy okna dają boczne światło, a żyrandol i cztery kinkiety rozświetlają ciepłymi plamami schody, boazerię i galerię. Wysokość holu wynosi 6 m. Stanowisko do ślizgu jest nadal dostępne.
 
 ## Próba odbioru
 
 1. Wybierz latarkę i oświetl przez 2,5 s jednocześnie bok przeszkody i pobliską podłogę. Zgaś światło. Porównaj punkty wewnątrz snopa, a następnie obszary przy granicy 15 m.
 2. Zmień źródło obok tej samej przeszkody. Sprawdź barwę zapałki i krótszy czas śladu.
 3. Przejdź z F4 do sali pałacu. Patrząc na ramę okna włącz i wyłącz bodycam, następnie porównaj dystorsję przy tym samym polu widzenia. Wróć do korytarza i sprawdź ustawienia.
+
+## Profil obrazu i przegląd Claude (T39)
+
+Zapałka używa jednego OmniLight3D. Suwak jasnego promienia ustala skalę zaniku i moc źródła. Zewnętrzna granica renderowania leży pięć razy dalej. Pamięć śledzi widoczne powierzchnie w tej samej strefie. Promienie fizyki służą wyłącznie sprawdzeniu zasłonięcia śladu.
+
+Filtr ekranowy Francisco Cidade działa przed optyką i diagnostyką. W F4 siła PSX startuje od 0,42 i rozmiar piksela od 2. Drugi przebieg nakłada radialną projekcję obiektywu, niewielkie rozdzielenie kanałów, ziarno i miękkie obramowanie. Wyłącznik bodycam pozwala wrócić do zwykłego obrazu 3D. Zachowujemy materiały powierzchni z cieniami i pamięcią ekspozycji. Oba źródła kodu są dostępne na CC0. [Bodycam footage, cyanone](https://godotshaders.com/shader/bodycam/) · [PSX – Godot Shader, Francisco Cidade](https://store.godotengine.org/asset/fcidade/psx-godot-shader/)
+
+Do przeglądu Claude oznaczamy PR i powiązane zadania etykietą review:claude. Na korytarzu porównać płonącą i zgaszoną zapałkę przy zbiegu ściany i podłogi, także przy promieniu 2,5 m. W rezydencji sprawdzić miękkie przejścia poza wyspami światła, ciemne wnęki, ruch po schodach i stabilność podziałów okien przy obrocie z włączoną kamerą.
