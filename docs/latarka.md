@@ -9,13 +9,17 @@ Pierwsze przekroczenie progu dziedzińca wyposaża gracza w latarkę z pełnym o
 | Źródło | Kształt światła | Pamięć powierzchni |
 |---|---|---|
 | Zapałka | Ciepła poświata dookoła, zasięg 3,6 m | Słabszy ślad do 1,8 s |
-| Latarka | Wąski stożek w kierunku patrzenia, półkąt 20°, energia 3,4, zasięg 15 m | Mocniejszy ślad do 3,5 s |
+| Latarka | Wąski stożek w kierunku patrzenia, półkąt 20°, energia 3,4, zasięg 15 m | Punktowa pamięć do 5 s |
 
 ## Co pamięta gracz
 
-Pamięć jest przypisana do powierzchni. Odejście, obrót głowy lub zgaszenie źródła pozwala porównać ostatnio oświetlone fragmenty z ciemnym tłem. Bezpośrednie światło reaguje natychmiast. Pamięć latarki narasta osobno dla każdego stale oświetlanego fragmentu. Dla dobrze oświetlonej powierzchni ustawionej na wprost potrzeba około 0,8 s, aby uzyskać pełny ślad. Brzeg snopa, większa odległość i światło padające pod ostrym kątem dają słabszy i krótszy ślad. Po opuszczeniu snopa zapis wygasa. Nowe skupienie wiązki znów nabiera siły; krótki przelot nie przedłuża silniejszego wcześniejszego śladu. Zapałka zachowuje dotychczasową poświatę. Przeszkoda blokuje zapis po przeciwnej stronie. Ślad słabnie przy granicy zasięgu, a dla latarki również na brzegu snopa.
+Pamięć jest przypisana do powierzchni. Odejście, obrót głowy lub zgaszenie źródła pozwala porównać ostatnio oświetlone fragmenty z ciemnym tłem. Bezpośrednie światło reaguje natychmiast. Pamięć latarki narasta osobno dla każdego stale oświetlanego fragmentu. Dla dobrze oświetlonej powierzchni ustawionej na wprost potrzeba około 0,25 s, aby uzyskać pełny ślad. Brzeg snopa, większa odległość i światło padające pod ostrym kątem dają słabszy i krótszy ślad. Po opuszczeniu snopa zapis wygasa. Nowe skupienie wiązki znów nabiera siły; krótki przelot nie przedłuża silniejszego wcześniejszego śladu. Zapałka zachowuje dotychczasową poświatę. Przeszkoda blokuje zapis po przeciwnej stronie. Ślad słabnie przy granicy zasięgu, a dla latarki również na brzegu snopa.
 
-W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbuje światło do 10 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader dla każdego piksela miesza wygasające próbki z sąsiedztwa 4 × 4 na tej samej ścianie lub podłodze. Dzięki temu granica śladu łagodnie zanika. Drobne detale cienia są przybliżone. Po wygaśnięciu śladu przeszkody mają ginąć w ciemności. Przy wyjściu pozostaje słaba wskazówka świetlna w promieniu 2,2 m. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
+W prototypie regularna siatka punktów na bryłach (odstęp do 0,45 m) próbkuje zapałkę do 10 razy na sekundę, a latarkę do 30 razy na sekundę. Promień do źródła sprawdza zasłonięcie. Shader dla każdego piksela miesza wygasające próbki z sąsiedztwa 4 × 4 na tej samej ścianie lub podłodze. Dzięki temu granica śladu łagodnie zanika. Drobne detale cienia są przybliżone. Po wygaśnięciu śladu przeszkody mają ginąć w ciemności. Przy wyjściu pozostaje słaba wskazówka świetlna w promieniu 2,2 m. Ślad jest efektem percepcji gracza. Ewentualne wykrywanie przez istoty powinno korzystać z działającego źródła.
+
+Pod wiązką latarki na oświetlonych powierzchniach pojawiają się chłodne punkty. Mają różne progi ekspozycji: kolejne zapalają się w miarę zapamiętywania fragmentu. Nowe punkty krótko się rozjaśniają. Po zgaszeniu światła wzór zostaje na bryle, rzednie i znika. To informacja o pamięci bohatera. Zapałka daje miękką poświatę.
+
+Cała trasa LightCourse ma ciągły dach, a ściany dziedzińca stykają się z jego spodem. Światło otoczenia jest wyłączone. Przy progu działa lokalna lampa orientacyjna; dziedziniec testuje zasady latarki plenerowej w kontrolowanej ciemności.
 
 ## Próba w grze
 

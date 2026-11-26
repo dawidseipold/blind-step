@@ -35,3 +35,5 @@
 | T28 | Trasa świetlna | T01 | Ciemny korytarz, boczne wnęki i przeszkody prowadzą na dziedziniec z latarką. |
 | T29 | Ciemność i miękka granica poświaty | T08, T28 | Porównanie tego samego ujęcia w Forward+ pokazuje płynny zanik śladu na podłodze. Po wygaśnięciu przeszkody w głębi dziedzińca giną w ciemności. |
 | T30 | Skupiony snop i czas ekspozycji | T08, T29 | Szybki obrót ujawnia trasę na moment, a zatrzymanie światła utrwala najjaśniejsze powierzchnie. |
+| T31 | Punktowy zapis oświetlonego terenu | T30 | Zatrzymanie wiązki przez około 0,25 s buduje pełny zapis na wprost; punkty utrzymują się do 5 s. |
+| T32 | Dach nad trasą świetlną | T28 | Dach pokrywa korytarz, wnęki i dziedziniec. Światło otoczenia jest wyłączone. |

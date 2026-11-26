@@ -5,8 +5,9 @@ const Lamp = preload("res://flashlight.gd")
 const ATLAS_WIDTH := 128
 const SPACING := 0.45
 const SAMPLE_INTERVAL := 0.1
-const FOCUS_SECONDS := 0.8
-const TRACE_SECONDS := 3.5
+const TORCH_SAMPLE_INTERVAL := 1.0 / 30.0
+const FOCUS_SECONDS := 0.25
+const TRACE_SECONDS := 5.0
 @onready var player: Player = $PlayerSpawn/Player
 @onready var lamp: Lamp = player.get_node("Camera3D/Flashlight")
 var points := PackedVector3Array()
@@ -52,6 +53,7 @@ func _ready() -> void:
 	exposure_texture = ImageTexture.create_from_image(exposure)
 	material.shader = preload("res://surface_memory.gdshader")
 	material.set_shader_parameter("exposure_map", exposure_texture)
+	material.set_shader_parameter("torch_trace_seconds", TRACE_SECONDS)
 	$Surfaces.mesh = mesh
 	$Surfaces.material_override = material
 
@@ -103,7 +105,7 @@ func _physics_process(delta: float) -> void:
 				sample_number += 1 # A new switch-on breaks continuous exposure.
 			previous_torch_sample = elapsed
 		record_light(source == 2, interval)
-		until_sample = SAMPLE_INTERVAL
+		until_sample = TORCH_SAMPLE_INTERVAL if source == 2 else SAMPLE_INTERVAL
 	previous_source = source
 
 func record_light(torch: bool, interval: float) -> void:
@@ -142,11 +144,11 @@ func record_light(torch: bool, interval: float) -> void:
 			var expiry := elapsed + memory * TRACE_SECONDS
 			if memory > 0.0 and expiry > stamp.g:
 				stamp.g = expiry
-				stamp.a = 1.0
+				stamp.a = elapsed
 		elif strength >= stamp.b * clampf((stamp.r - elapsed) / 1.8, 0.0, 1.0):
 			stamp.r = elapsed + 1.8
 			stamp.b = strength
 		exposure.set_pixel(x, y, stamp)
 	exposure_texture.update(exposure)
-	trace_until = maxf(trace_until, elapsed + (3.5 if torch else 1.8))
+	trace_until = maxf(trace_until, elapsed + (TRACE_SECONDS if torch else 1.8))
 	material.set_shader_parameter("trace_until", trace_until)

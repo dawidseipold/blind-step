@@ -7,16 +7,14 @@
 [sub_resource type="Environment" id="Night"]
 background_mode = 1
 background_color = Color(0.003, 0.004, 0.005, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0.15, 0.18, 0.22, 1)
-ambient_light_energy = 0.008
+ambient_light_source = 1
 reflected_light_source = 1
 
 [sub_resource type="BoxShape3D" id="HallFloor"]
 size = Vector3(5, 0.4, 28)
 
 [sub_resource type="BoxShape3D" id="Ceiling"]
-size = Vector3(5, 0.3, 28)
+size = Vector3(15.6, 0.3, 44.6)
 
 [sub_resource type="BoxShape3D" id="StartWall"]
 size = Vector3(5, 3.2, 0.3)
@@ -79,19 +77,19 @@ size = Vector3(0.5, 3.2, 0.5)
 size = Vector3(2, 1.2, 2)
 
 [sub_resource type="BoxShape3D" id="FenceEnd"]
-size = Vector3(15, 2.4, 0.25)
+size = Vector3(15, 3.2, 0.25)
 
 [sub_resource type="BoxShape3D" id="FenceL"]
-size = Vector3(0.25, 2.4, 16)
+size = Vector3(0.25, 3.2, 16)
 
 [sub_resource type="BoxShape3D" id="FenceR"]
-size = Vector3(0.25, 2.4, 16)
+size = Vector3(0.25, 3.2, 16)
 
 [sub_resource type="BoxShape3D" id="FenceEntranceL"]
-size = Vector3(5, 2.4, 0.25)
+size = Vector3(5, 3.2, 0.25)
 
 [sub_resource type="BoxShape3D" id="FenceEntranceR"]
-size = Vector3(5, 2.4, 0.25)
+size = Vector3(5, 3.2, 0.25)
 
 [node name="LightCourse" type="Node3D"]
 script = ExtResource("Course")
@@ -113,7 +111,7 @@ position = Vector3(0, -0.2, -6)
 shape = SubResource("HallFloor")
 
 [node name="Ceiling" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(0, 3.3, -6)
+position = Vector3(0, 3.3, -14)
 shape = SubResource("Ceiling")
 
 [node name="StartWall" type="CollisionShape3D" parent="Geometry"]
@@ -197,23 +195,23 @@ position = Vector3(2, 0.6, -29)
 shape = SubResource("CrateOuter")
 
 [node name="FenceEnd" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(0, 1.2, -36)
+position = Vector3(0, 1.6, -36)
 shape = SubResource("FenceEnd")
 
 [node name="FenceL" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(-7.5, 1.2, -28)
+position = Vector3(-7.5, 1.6, -28)
 shape = SubResource("FenceL")
 
 [node name="FenceR" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(7.5, 1.2, -28)
+position = Vector3(7.5, 1.6, -28)
 shape = SubResource("FenceR")
 
 [node name="FenceEntranceL" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(-5, 1.2, -20)
+position = Vector3(-5, 1.6, -20)
 shape = SubResource("FenceEntranceL")
 
 [node name="FenceEntranceR" type="CollisionShape3D" parent="Geometry"]
-position = Vector3(5, 1.2, -20)
+position = Vector3(5, 1.6, -20)
 shape = SubResource("FenceEntranceR")
 
 [node name="Surfaces" type="MeshInstance3D" parent="."]
