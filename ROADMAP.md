@@ -9,14 +9,14 @@
 | T02 | Chód i obrót myszy | T01 | Gracz przechodzi prostą i zatrzymuje się przy ścianie. Ruch po skosie zachowuje prędkość. |
 | T03 | Kucanie | T02 | Gracz przechodzi pod niskim stropem i może wstać dopiero po wyjściu. |
 | T04 | Sprint i kondycja | T02 | Sprint wyczerpuje zapas, który wraca po odpoczynku. |
-| T05 | Impuls latarki | T02 | Jedno naciśnięcie rozjaśnia wnękę, snop płynnie wygasa, kolejne naciśnięcie w trakcie impulsu nie przedłuża światła. |
-| T06 | Bateria | T05 | Po N impulsach latarka jest pusta. Pominięte wejścia nie zużywają zapasu. Reset odtwarza warunki próby. |
+| T05 | Zapałki w domu | T02 | Każde zapalenie zużywa sztukę. F gasi płomień, który może też wypalić się sam. |
+| T06 | Wymienne ogniwa latarki plenerowej | T05 | Bateria ubywa podczas świecenia. R wymienia ogniwo z zapasu. |
 | T07 | Optyka bodycam | T02 | Z jednego miejsca porównano dwa ustawienia dystorsji i stabilność środka przy obrocie. |
-| T08 | Adaptacja po impulsie | T05, T07 | Po zgaśnięciu tester odróżnia duże kształty, a ponowny impuls odsłania szczegół. |
+| T08 | Pamięć oświetlonych powierzchni | T05, T06 | Zapałka pozostawia słabszy i krótszy ślad, latarka mocniejszy i dłuższy. Przeszkoda osłania powierzchnię. |
 | T09 | Proceduralne audio bazowe | blok audio po mechanikach i kamerze; T04, T06 | Oddech narasta podczas sprintu i cichnie podczas regeneracji. Po wyczerpaniu baterii słychać klik. |
 | T10 | Korytarz i trzy pokoje | odbiór T02–T09 | Dwie trasy oraz narożnik umożliwiają powtórzenie próby percepcji. |
 | T11 | Słuch istoty | T10 | Sprint przyciąga z większej odległości niż skradanie, także przy ściszonym masterze. |
-| T12 | Dwie reakcje na impuls | T10, T06 | W tym samym stanowisku jeden profil istoty cofa się, drugi bada błysk. Pełna ściana osłania cel. |
+| T12 | Dwie reakcje na światło | T10, T06 | Jeden profil istoty cofa się, drugi bada światło. Pełna ściana osłania cel. |
 | T13 | Podłoża i krzaki | po akceptacji podstaw | W ślepej próbie tester rozróżnia dwa rodzaje kroków i wejście w krzaki. |
 | T14 | Próba wyboru trasy i pojedynczego strzału | T11, T12 | Tester porównuje przejście z ograniczoną baterią i wariant z możliwością odstraszenia strzałem. |
 | T15 | Pierwsza próbka wykończenia | po akceptacji mechanik | Jedno ujęcie wyznacza paletę, tekstury i skalę detalu. |
@@ -32,3 +32,5 @@
 | T25 | Szybszy sprint i rezerwa | T20 | Końcówka biegu trwa dłużej, po jej wykorzystaniu regeneracja rusza później, status znika po odczekaniu. |
 | T26 | Ślizg do niskiej osłony | T03, T25 | Ctrl podczas rozpędzonego biegu wprowadza postać pod niski strop, a z marszu powoduje kucanie. |
 | T27 | Szkic fabularny | projekt narracji | Zarys przyjazdu, odkrycia, ucieczki i zakończeń ma osobny dokument z otwartymi decyzjami. |
+| T28 | Trasa świetlna | T01 | Ciemny korytarz, boczne wnęki i przeszkody prowadzą na dziedziniec z latarką. |
+| T29 | Ciemność i miękka granica poświaty | T08, T28 | Porównanie tego samego ujęcia w Forward+ pokazuje płynny zanik śladu na podłodze. Po wygaśnięciu przeszkody w głębi dziedzińca giną w ciemności. |

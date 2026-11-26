@@ -17,7 +17,7 @@ function EnsureLabel([string]$name) {
     Github @('label','create',$name,'-R',$Repo,'--color',$color) | Out-Null
     $catalog[$name] = $true
 }
-$areas = 'workflow','level','player','player','player','lighting','lighting','rendering','rendering','audio','level','ai','ai','audio','gameplay','art','tools','rendering','workflow','workflow','player','player','gameplay','rendering','rendering','player','player','gameplay'
+$areas = 'workflow','level','player','player','player','lighting','lighting','rendering','rendering','audio','level','ai','ai','audio','gameplay','art','tools','rendering','workflow','workflow','player','player','gameplay','rendering','rendering','player','player','gameplay','level','rendering'
 $rows = @{}
 foreach ($line in Get-Content (Join-Path $PSScriptRoot 'ROADMAP.md') -Encoding UTF8) {
     if ($line -match '^\| (T\d+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$') {
@@ -29,7 +29,7 @@ function Defaults($id, $state) {
     if ($id -and [int]$id.Substring(1) -lt $areas.Count) { $area = $areas[[int]$id.Substring(1)] }
     $type = 'feature'
     if (!$id -or $id -in 'T00','T01','T15','T16','T18','T19','T27') { $type = 'task' }
-    if ($id -eq 'T17') { $type = 'bug' }
+    if ($id -in 'T17','T29') { $type = 'bug' }
     $status = 'todo'
     if ($id -in 'T02','T18') { $status = 'review' }
     if ($state -eq 'CLOSED') { $status = 'done' }

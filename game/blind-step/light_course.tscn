@@ -1,0 +1,234 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://light_course.gd" id="Course"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="Player"]
+[ext_resource type="Script" path="res://bench_readout.gd" id="Readout"]
+
+[sub_resource type="Environment" id="Night"]
+background_mode = 1
+background_color = Color(0.003, 0.004, 0.005, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.15, 0.18, 0.22, 1)
+ambient_light_energy = 0.008
+reflected_light_source = 1
+
+[sub_resource type="BoxShape3D" id="HallFloor"]
+size = Vector3(5, 0.4, 28)
+
+[sub_resource type="BoxShape3D" id="Ceiling"]
+size = Vector3(5, 0.3, 28)
+
+[sub_resource type="BoxShape3D" id="StartWall"]
+size = Vector3(5, 3.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="WestNear"]
+size = Vector3(0.3, 3.2, 8)
+
+[sub_resource type="BoxShape3D" id="WestFar"]
+size = Vector3(0.3, 3.2, 16)
+
+[sub_resource type="BoxShape3D" id="WestNookFloor"]
+size = Vector3(3, 0.4, 4)
+
+[sub_resource type="BoxShape3D" id="WestNookBack"]
+size = Vector3(0.3, 3.2, 4)
+
+[sub_resource type="BoxShape3D" id="WestNookA"]
+size = Vector3(3, 3.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="WestNookB"]
+size = Vector3(3, 3.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="EastNear"]
+size = Vector3(0.3, 3.2, 17)
+
+[sub_resource type="BoxShape3D" id="EastFar"]
+size = Vector3(0.3, 3.2, 8)
+
+[sub_resource type="BoxShape3D" id="EastNookFloor"]
+size = Vector3(3, 0.4, 3)
+
+[sub_resource type="BoxShape3D" id="EastNookBack"]
+size = Vector3(0.3, 3.2, 3)
+
+[sub_resource type="BoxShape3D" id="EastNookA"]
+size = Vector3(3, 3.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="EastNookB"]
+size = Vector3(3, 3.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="CrateNear"]
+size = Vector3(2.4, 1.1, 1.1)
+
+[sub_resource type="BoxShape3D" id="ShelfTurn"]
+size = Vector3(2.3, 2.5, 0.85)
+
+[sub_resource type="BoxShape3D" id="CrateDeep"]
+size = Vector3(2.7, 1.5, 1.3)
+
+[sub_resource type="BoxShape3D" id="ShelfLintel"]
+size = Vector3(1.7, 1.1, 1.4)
+
+[sub_resource type="BoxShape3D" id="YardFloor"]
+size = Vector3(15, 0.4, 16)
+
+[sub_resource type="BoxShape3D" id="PalePost"]
+size = Vector3(0.5, 3.2, 0.5)
+
+[sub_resource type="BoxShape3D" id="CrateOuter"]
+size = Vector3(2, 1.2, 2)
+
+[sub_resource type="BoxShape3D" id="FenceEnd"]
+size = Vector3(15, 2.4, 0.25)
+
+[sub_resource type="BoxShape3D" id="FenceL"]
+size = Vector3(0.25, 2.4, 16)
+
+[sub_resource type="BoxShape3D" id="FenceR"]
+size = Vector3(0.25, 2.4, 16)
+
+[sub_resource type="BoxShape3D" id="FenceEntranceL"]
+size = Vector3(5, 2.4, 0.25)
+
+[sub_resource type="BoxShape3D" id="FenceEntranceR"]
+size = Vector3(5, 2.4, 0.25)
+
+[node name="LightCourse" type="Node3D"]
+script = ExtResource("Course")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Night")
+
+[node name="ExitLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 2.3, -20.5)
+light_color = Color(0.63, 0.73, 0.86, 1)
+light_energy = 0.10
+omni_range = 2.2
+shadow_enabled = true
+
+[node name="Geometry" type="StaticBody3D" parent="."]
+
+[node name="HallFloor" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(0, -0.2, -6)
+shape = SubResource("HallFloor")
+
+[node name="Ceiling" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(0, 3.3, -6)
+shape = SubResource("Ceiling")
+
+[node name="StartWall" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(0, 1.6, 8)
+shape = SubResource("StartWall")
+
+[node name="WestNear" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-2.5, 1.6, 4)
+shape = SubResource("WestNear")
+
+[node name="WestFar" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-2.5, 1.6, -12)
+shape = SubResource("WestFar")
+
+[node name="WestNookFloor" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-4, -0.2, -2)
+shape = SubResource("WestNookFloor")
+
+[node name="WestNookBack" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-5.5, 1.6, -2)
+shape = SubResource("WestNookBack")
+
+[node name="WestNookA" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-4, 1.6, 0)
+shape = SubResource("WestNookA")
+
+[node name="WestNookB" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-4, 1.6, -4)
+shape = SubResource("WestNookB")
+
+[node name="EastNear" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(2.5, 1.6, -0.5)
+shape = SubResource("EastNear")
+
+[node name="EastFar" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(2.5, 1.6, -16)
+shape = SubResource("EastFar")
+
+[node name="EastNookFloor" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(4, -0.2, -10.5)
+shape = SubResource("EastNookFloor")
+
+[node name="EastNookBack" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(5.5, 1.6, -10.5)
+shape = SubResource("EastNookBack")
+
+[node name="EastNookA" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(4, 1.6, -9)
+shape = SubResource("EastNookA")
+
+[node name="EastNookB" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(4, 1.6, -12)
+shape = SubResource("EastNookB")
+
+[node name="CrateNear" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-1.25, 0.55, 1.5)
+shape = SubResource("CrateNear")
+
+[node name="ShelfTurn" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(1.25, 1.25, -5)
+shape = SubResource("ShelfTurn")
+
+[node name="CrateDeep" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-1, 0.75, -12.8)
+shape = SubResource("CrateDeep")
+
+[node name="ShelfLintel" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(1.5, 1.75, -15)
+shape = SubResource("ShelfLintel")
+
+[node name="YardFloor" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(0, -0.2, -28)
+shape = SubResource("YardFloor")
+
+[node name="PalePost" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-2, 1.6, -26)
+shape = SubResource("PalePost")
+
+[node name="CrateOuter" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(2, 0.6, -29)
+shape = SubResource("CrateOuter")
+
+[node name="FenceEnd" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(0, 1.2, -36)
+shape = SubResource("FenceEnd")
+
+[node name="FenceL" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-7.5, 1.2, -28)
+shape = SubResource("FenceL")
+
+[node name="FenceR" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(7.5, 1.2, -28)
+shape = SubResource("FenceR")
+
+[node name="FenceEntranceL" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(-5, 1.2, -20)
+shape = SubResource("FenceEntranceL")
+
+[node name="FenceEntranceR" type="CollisionShape3D" parent="Geometry"]
+position = Vector3(5, 1.2, -20)
+shape = SubResource("FenceEntranceR")
+
+[node name="Surfaces" type="MeshInstance3D" parent="."]
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+position = Vector3(0, 0.05, 5)
+
+[node name="Player" parent="PlayerSpawn" instance=ExtResource("Player")]
+
+[node name="Diagnostics" type="CanvasLayer" parent="."]
+
+[node name="Stamina" type="Label" parent="Diagnostics" node_paths=PackedStringArray("player")]
+offset_left = 12.0
+offset_top = 10.0
+mouse_filter = 2
+theme_override_constants/outline_size = 4
+script = ExtResource("Readout")
+player = NodePath("../../PlayerSpawn/Player")
