@@ -5,6 +5,8 @@ const Lamp = preload("res://flashlight.gd")
 const ATLAS_WIDTH := 128
 const SPACING := 0.45
 const SAMPLE_INTERVAL := 0.1
+const FOCUS_SECONDS := 0.8
+const TRACE_SECONDS := 3.5
 @onready var player: Player = $PlayerSpawn/Player
 @onready var lamp: Lamp = player.get_node("Camera3D/Flashlight")
 var points := PackedVector3Array()
@@ -20,6 +22,10 @@ var elapsed := 0.0
 var trace_until := 0.0
 var until_sample := 0.0
 var previous_source := 0
+var previous_torch_sample := 0.0
+var sample_number := 1
+var last_seen := PackedInt32Array()
+var dwell := PackedFloat32Array()
 
 func _ready() -> void:
 	# Authored box colliders also define the surfaces used by the light-memory pass.
@@ -30,6 +36,8 @@ func _ready() -> void:
 			build_face(collider.position, size, axis, collider.name)
 			build_face(collider.position, size, -axis, collider.name)
 	var arrays := []
+	last_seen.resize(points.size())
+	dwell.resize(points.size())
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = points
 	arrays[Mesh.ARRAY_NORMAL] = normals
@@ -86,11 +94,19 @@ func _physics_process(delta: float) -> void:
 		source = 2
 	until_sample -= delta
 	if source != 0 and (source != previous_source or until_sample <= 0.0):
-		record_light(source == 2)
+		var interval := 0.0
+		if source == 2:
+			sample_number += 1
+			if previous_source == 2:
+				interval = elapsed - previous_torch_sample
+			else:
+				sample_number += 1 # A new switch-on breaks continuous exposure.
+			previous_torch_sample = elapsed
+		record_light(source == 2, interval)
 		until_sample = SAMPLE_INTERVAL
 	previous_source = source
 
-func record_light(torch: bool) -> void:
+func record_light(torch: bool, interval: float) -> void:
 	var light_position := lamp.global_position
 	var forward := -lamp.global_basis.z
 	var reach := lamp.spot_range if torch else lamp.flame.omni_range
@@ -113,10 +129,20 @@ func record_light(torch: bool) -> void:
 		var stamp := exposure.get_pixel(x, y)
 		var strength := 1.0 - smoothstep(reach * 0.35, reach, offset.length())
 		if torch:
-			strength *= smoothstep(cutoff, minf(1.0, cutoff + 0.035), forward.dot(offset.normalized()))
-			if strength >= stamp.a * clampf((stamp.g - elapsed) / 3.5, 0.0, 1.0):
-				stamp.g = elapsed + 3.5
-				stamp.a = strength
+			var ray := offset.normalized()
+			strength *= smoothstep(cutoff, 1.0, forward.dot(ray))
+			strength *= maxf(0.0, normals[i].dot(-ray))
+			if last_seen[i] == sample_number - 1:
+				dwell[i] = minf(1.0, dwell[i] + interval * strength / FOCUS_SECONDS)
+			else:
+				dwell[i] = 0.0
+			last_seen[i] = sample_number
+			# Weak or fleeting illumination leaves a shorter and dimmer trace.
+			var memory := strength * smoothstep(0.0, 1.0, dwell[i])
+			var expiry := elapsed + memory * TRACE_SECONDS
+			if memory > 0.0 and expiry > stamp.g:
+				stamp.g = expiry
+				stamp.a = 1.0
 		elif strength >= stamp.b * clampf((stamp.r - elapsed) / 1.8, 0.0, 1.0):
 			stamp.r = elapsed + 1.8
 			stamp.b = strength

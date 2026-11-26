@@ -5,6 +5,7 @@ extends SpotLight3D
 @export_range(1.0, 120.0) var cell_seconds := 25.0
 @export_range(0, 10) var spare_cells := 2
 @onready var charge := cell_seconds
+@onready var beam_energy := light_energy
 @onready var flame: OmniLight3D = $Match
 var burn_left := 0.0
 var has_torch := false
@@ -22,7 +23,7 @@ func equip_torch() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("flashlight"):
 		if has_torch:
-			light_energy = 4.0 if light_energy == 0.0 and charge > 0.0 else 0.0
+			light_energy = beam_energy if light_energy == 0.0 and charge > 0.0 else 0.0
 		elif burn_left > 0.0:
 			burn_left = 0.0
 			flame.hide()

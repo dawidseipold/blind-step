@@ -34,3 +34,4 @@
 | T27 | Szkic fabularny | projekt narracji | Zarys przyjazdu, odkrycia, ucieczki i zakończeń ma osobny dokument z otwartymi decyzjami. |
 | T28 | Trasa świetlna | T01 | Ciemny korytarz, boczne wnęki i przeszkody prowadzą na dziedziniec z latarką. |
 | T29 | Ciemność i miękka granica poświaty | T08, T28 | Porównanie tego samego ujęcia w Forward+ pokazuje płynny zanik śladu na podłodze. Po wygaśnięciu przeszkody w głębi dziedzińca giną w ciemności. |
+| T30 | Skupiony snop i czas ekspozycji | T08, T29 | Szybki obrót ujawnia trasę na moment, a zatrzymanie światła utrwala najjaśniejsze powierzchnie. |
