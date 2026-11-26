@@ -17,7 +17,7 @@ function EnsureLabel([string]$name) {
     Github @('label','create',$name,'-R',$Repo,'--color',$color) | Out-Null
     $catalog[$name] = $true
 }
-$areas = 'workflow','level','player','player','player','lighting','lighting','rendering','rendering','audio','level','ai','ai','audio','gameplay','art','tools','rendering','workflow','workflow','player','player','gameplay','rendering','rendering','player','player','gameplay','level','rendering','lighting','rendering','level','lighting'
+$areas = 'workflow','level','player','player','player','lighting','lighting','rendering','rendering','audio','level','ai','ai','audio','gameplay','art','tools','rendering','workflow','workflow','player','player','gameplay','rendering','rendering','player','player','gameplay','level','rendering','lighting','rendering','level','lighting','lighting'
 $rows = @{}
 foreach ($line in Get-Content (Join-Path $PSScriptRoot 'ROADMAP.md') -Encoding UTF8) {
     if ($line -match '^\| (T\d+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$') {

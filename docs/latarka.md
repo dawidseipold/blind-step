@@ -8,8 +8,8 @@ Pierwsze przekroczenie progu dziedzińca wyposaża gracza w latarkę z pełnym o
 
 | Źródło | Kształt światła | Pamięć powierzchni |
 |---|---|---|
-| Zapałka | Ciepła poświata dookoła, zasięg 2,7 m | Bursztynowe punkty do 1,4 s |
-| Latarka | Wąski stożek w kierunku patrzenia, półkąt 20°, energia 3,4, zasięg 15 m, radialnie wygaszone brzegi | Punktowa pamięć do 5 s |
+| Zapałka | Ciepła poświata dookoła, zasięg 2,7 m | Bursztynowe punkty do 7 s |
+| Latarka | Wąski stożek w kierunku patrzenia, półkąt 28,63°, energia 3,4, zasięg 15 m, radialnie wygaszone brzegi | Punktowa pamięć do 10 s |
 
 ## Co pamięta gracz
 
