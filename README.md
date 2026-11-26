@@ -6,3 +6,5 @@ Godot Engine 4.7.2.stable.steam (ed1daf0bf), Forward+, Windows. W menedżerze ot
 
 [Etapy rozwoju i warunki odbioru](docs/etapy.md)
 Na planszy Bench licznik Stamina pokazuje kondycję w skali 0–100. F3 ukrywa lub przywraca odczyt.
+
+[Ruch, rezerwa kondycji i sterowanie ślizgiem](docs/ruch.md). Ctrl podczas rozpędzonego sprintu inicjuje ślizg.

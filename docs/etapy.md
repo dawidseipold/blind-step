@@ -5,7 +5,7 @@ Każde issue przypisujemy do jednego kamienia milowego na GitHubie. Nowy etap za
 | Etap | Zakres | Warunek przejścia |
 |---|---|---|
 | M0 · Projekt i warsztat | #1, #2, #17, #20, #22 | F5 uruchamia Bench z czystej kopii repozytorium, a zadanie można przekazać kolejnemu agentowi. |
-| M1 · Podstawy gracza | #3, #4, #5, #6, #7, #8, #9, #10, #26, #27, #30 | Na bryłach można przejść pod stropem, wyczerpać kondycję i baterię oraz odnaleźć drogę po zgaśnięciu impulsu. Kamera i audio mają wersję testową. |
+| M1 · Podstawy gracza | #3, #4, #5, #6, #7, #8, #9, #10, #26, #27, #30, #32, #33 | Na bryłach można przejść pod stropem, wyczerpać kondycję i baterię oraz odnaleźć drogę po zgaśnięciu impulsu. Kamera i audio mają wersję testową. |
 | M2 · Percepcja istoty | #11, #12, #13 | W tym samym układzie korytarza można powtórzyć test hałasu, widocznego impulsu i osłony za ścianą. |
 | M3 · Próba pętli survivalowej | #15, #28 | Dwa przejścia tej samej trasy ujawniają koszt użycia światła i strzału. Po obserwacji wybieramy pętlę albo kolejny eksperyment. |
 | M4 · Wykończenie | #14, #16, #19, #29 | Po wyborze pętli porównujemy kadr wzorcowy, płynność w ruchu i odsłuch podłoży. Właściciel akceptuje wygląd oraz brzmienie. |
@@ -14,7 +14,7 @@ Każde issue przypisujemy do jednego kamienia milowego na GitHubie. Nowy etap za
 
 W M1 pracujemy w trzech blokach. Każdy zaczyna się od osobnej próby na tej samej planszy Bench.
 
-1. **Mechaniki.** Chód, kucanie, sprint, kondycja i płynne przyspieszanie oraz hamowanie (#26). Potem impuls latarki (#6) i bateria (#7). Odczyty F3 pokazują stan bez angażowania kamery i dźwięku.
+1. **Mechaniki.** Chód, kucanie, sprint, kondycja i płynne przyspieszanie oraz hamowanie (#26). Szybszy sprint, rezerwę i ślizg (#32, #33) testujemy jako jeden manewr ucieczki. Potem impuls latarki (#6) i bateria (#7). Odczyty F3 pokazują stan bez angażowania kamery i dźwięku.
 2. **Kamera.** Najpierw bazowy profil fisheye (#8) na nieruchomym ujęciu oraz podczas przejścia. Na zatwierdzonym profilu sprawdzamy niezależnie płynne obniżanie oczu (#27), zmianę FOV podczas sprintu (#30) i adaptację po impulsie (#9). Kołysanie pozostaje próbą wykończeniową po diagnostyce smużenia.
 3. **Audio.** Gdy gotowe są sprint i bateria, w osobnej sesji odsłuchowej generujemy oddech przy wysiłku i klik pustej latarki (#10). Dźwięki podłoży i roślin pozostają w M4.
 

@@ -13,3 +13,7 @@ W późniejszym teście istota światłoczuła cofa się po trafieniu wiązką. 
 ## Audio i wygląd
 
 Najpierw podstawowe ruchy i sygnały funkcjonalne. Potem test proceduralnego oddechu, kroku i dronu. Osobny odsłuch porówna podłoża i szelest krzaków po akceptacji mechanik. Głośność odsłuchu gracza jest niezależna od zdarzeń hałasu AI. W końcowym etapie dobierzemy paletę, tekstury i materiały na podstawie jednego zaakceptowanego kadru.
+
+Bieżące założenia szybkiej ucieczki, ślizgu i kondycji opisuje [ruch gracza](docs/ruch.md).
+
+[Roboczy zarys wakacji u wuja](docs/drafts/fabula.md) — propozycja fabularna do późniejszej pracy nad scenariuszem.

@@ -14,3 +14,5 @@ Jedno issue na każdą zmianę, także dokumentację, poprawkę i wydanie. Jedno
 
 Przy tworzeniu każdego issue przypisz area:<obszar>, priority:<low|medium|high>, status:<todo|in-progress|review|done> oraz type:<feature|bug|task>. Używaj jednej wartości każdej obowiązkowej kategorii. Dla zadania do klasyfikacji wybierz area:triage. Pozostałe etykiety również zapisuj jako typ:wartość. Przy rozpoczęciu pracy zmień status na in-progress, przy zgłoszeniu do odbioru na review, po zamknięciu na done. Przy wznowieniu wróć do todo. Zastępuj poprzednią wartość w obrębie kategorii.
 - Nadaj każdemu issue milestone według docs/etapy.md. Wykończenie kieruj do M4. Wcześniejszą pracę nad usterką uzasadnij wskazaniem mechaniki, której test blokuje.
+
+Przy każdej dodanej lub zmienionej mechanice zaktualizuj jej bieżące założenia w docs/ w tym samym PR: sterowanie, progi, koszty, interakcje i próbę odbioru. Przed zmianą odczytaj odpowiedni opis (dla gracza docs/ruch.md). Rozbieżność między opisem, kodem i historycznym issue rozstrzygnij według ostatniej zaakceptowanej decyzji projektu. Przyszłe pomysły oznaczaj jako planowane.

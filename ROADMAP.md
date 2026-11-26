@@ -29,3 +29,6 @@
 | T22 | Próba stresu podczas pogoni | T11, T12 | Sama pogoń podnosi stres nieruchomej postaci. Sam sprint w pustej sali podnosi zmęczenie. |
 | T23 | Kołysanie bodycam przy biegu | T17, T20 | Przy amplitudzie zero wraca kadr kontrolny. Kołysanie boczne i pionowe wygasa po zatrzymaniu. |
 | T24 | Poszerzenie pola widzenia podczas sprintu | T07, T20 | Pole widzenia płynnie rośnie w biegu i wraca podczas chodu lub kucania; sam Shift w miejscu zachowuje kadr. |
+| T25 | Szybszy sprint i rezerwa | T20 | Końcówka biegu trwa dłużej, po jej wykorzystaniu regeneracja rusza później, status znika po odczekaniu. |
+| T26 | Ślizg do niskiej osłony | T03, T25 | Ctrl podczas rozpędzonego biegu wprowadza postać pod niski strop, a z marszu powoduje kucanie. |
+| T27 | Szkic fabularny | projekt narracji | Zarys przyjazdu, odkrycia, ucieczki i zakończeń ma osobny dokument z otwartymi decyzjami. |
